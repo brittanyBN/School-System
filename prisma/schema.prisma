@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Person is in one class, a person is in many lectures
+model Person {
+  personalNumber String   @id @default(cuid())
+  name           String
+  email          String
+  password       String
+  role           Role     @default(STUDENT)
+  createdAt      DateTime @default(now())
+
+  // RELATIONS
+  lectures PersonOnLecture[]
+  class    Class             @relation(fields: [classId], references: [id])
+  classId  String
+}
+
+model Class {
+  id   String @id @default(cuid())
+  slug String @unique
+  name String @unique
+
+  // RELATIONS
+  students Person[]
+}
+
+model Lecture {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  className   String
+  time        DateTime
+  description String
+
+  // RELATIONS
+  students PersonOnLecture[]
+}
+
+model PersonOnLecture {
+  person    Person  @relation(fields: [personId], references: [personalNumber])
+  personId  String // relation scalar field (used in the `@relation` attribute above)
+  lecture   Lecture @relation(fields: [lectureId], references: [id])
+  lectureId String // relation scalar field (used in the `@relation` attribute above)
+
+  @@id([personId, lectureId])
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+}
