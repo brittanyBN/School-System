@@ -130,16 +130,39 @@ export async function updatePerson(req: Request, res: Response) {
     });
 }
 
-// DELETE PERSON BY PERSONAL NUMBER
+// DELETE PERSON BY PERSONAL NUMBER AND ALL RELATED ENTRIES
 export async function deletePerson(req: Request, res: Response) {
     const { personalNumber } = req.params;
-    const person = await prisma.person.delete({
-        where: {
-            personalNumber,
-        },
-    });
-    return res.status(201).json({
-        message: "person deleted",
-        data: person,
-    });
+
+    try {
+        await prisma.$transaction([
+            prisma.personOnLecture.deleteMany({
+                where: {
+                    person: {
+                        personalNumber,
+                    },
+                },
+            }),
+            prisma.person.delete({
+                where: {
+                    personalNumber,
+                },
+            }),
+        ]);
+
+        return res.status(201).json({
+            message: "Person deleted",
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Failed to delete person",
+            error,
+        });
+    }
 }
+
+
+
+
+
+

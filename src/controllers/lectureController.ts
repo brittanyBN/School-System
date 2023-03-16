@@ -48,12 +48,12 @@ export async function getLecture(req: Request, res: Response) {
     });
 }
 
-// UPDATE LECTURE BY ID
+// UPDATE LECTURE BY SLUG
 export async function updateLecture(req: Request, res: Response) {
-    const { id } = req.params;
+    const { slug } = req.params;
     const data = req.body;
     const lecture = await prisma.lecture.update({
-        where: { id },
+        where: { slug },
         data: {
             slug: data.slug,
             className: data.className,
@@ -69,9 +69,9 @@ export async function updateLecture(req: Request, res: Response) {
 
 // DELETE LECTURE BY ID
 export async function deleteLecture(req: Request, res: Response) {
-    const { id } = req.params;
+    const { slug } = req.params;
     const lecture = await prisma.lecture.delete({
-        where: { id },
+        where: { slug },
     });
     return res.json({
         message: "lecture deleted",

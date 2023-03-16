@@ -38,10 +38,10 @@ routes.get("/lectures/:slug", getLecture);
 
 // PATCH ROUTES
 routes.patch("/persons/:personalNumber", updatePerson);
-routes.patch("/classes/:id", updateClass);
-routes.patch("/lectures/:id", updateLecture);
+routes.patch("/classes/:slug", updateClass);
+routes.patch("/lectures/:slug", updateLecture);
 
 // DELETE ROUTES
 routes.delete("/persons/:personalNumber", deletePerson);
-routes.delete("/classes/:id", deleteClass);
-routes.delete("/lectures/:id", deleteLecture);
+routes.delete("/classes/:slug", deleteClass);
+routes.delete("/lectures/:slug", deleteLecture);
