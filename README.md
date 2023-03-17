@@ -18,8 +18,8 @@ This is an API for a school system that facilitates teachers and the administrat
 ## Endpoints
 You can access the REST API of the server using the following endpoints:
 ### GET
-- /persons: Get all persons (teachers and students)
-- /persons/:id: Get a person by their personal number
+- /persons : Get all persons (teachers and students)
+- /persons/:id : Get a person by their personal number
 - /persons/:id/lectures: Get all lectures of a person by their personal number
 - /classes: Get all classes
 - /classes/:id: Get a class by its id
