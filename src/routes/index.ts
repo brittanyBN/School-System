@@ -43,5 +43,5 @@ routes.patch("/lectures/:slug", updateLecture);
 
 // DELETE ROUTES
 routes.delete("/persons/:personalNumber", deletePerson);
-routes.delete("/classes/:slug", deleteClass);
+routes.delete("/classes/:id", deleteClass);
 routes.delete("/lectures/:slug", deleteLecture);
