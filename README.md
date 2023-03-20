@@ -1,5 +1,7 @@
 # School-System
 
+### IN PROGRESS - will finish end of day March 20
+
 ## Purpose of Project
 
 This is an API for a school system that facilitates teachers and the administration at the school by allowing them to have a complete log of attendance in each lesson.
