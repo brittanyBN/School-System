@@ -124,14 +124,16 @@ export async function deleteLecture(req: Request, res: Response) {
         await prisma.$transaction([
             prisma.personOnLecture.deleteMany({
                 where: {
-                    lectureId: id,
+                    lecture: {
+                        id
+                    },
                 }
             }),
             prisma.lecture.delete({
                 where: { id },
             }),
         ]);
-        return res.json({
+        return res.status(200).json({
             message: "lecture deleted",
         });
     } catch (err) {
