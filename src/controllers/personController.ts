@@ -5,29 +5,29 @@ import bcrypt from "bcryptjs";
 // LOGIN VALIDATION
 export async function login(req: Request, res: Response) {
     try {
-    const { personalNumber, password } = req.body;
-    const person = await prisma.person.findUnique({
-        where: {
-            personalNumber,
-        },
-    });
-
-    if (!person) {
-        return res.status(404).json({
-            message: "invalid username or password",
+        const { personalNumber, password } = req.body;
+        const person = await prisma.person.findUnique({
+            where: {
+                personalNumber,
+            },
         });
-    }
 
-    const match = bcrypt.compareSync(password, person.password);
-    if (!match) {
-        return res.status(404).json({
-            message: "invalid username or password",
+        if (!person) {
+            return res.status(404).json({
+                message: "invalid username or password",
+            });
+        }
+
+        const match = bcrypt.compareSync(password, person.password);
+        if (!match) {
+            return res.status(404).json({
+                message: "invalid username or password",
+            });
+        }
+
+        return res.status(200).json({
+            message: "logged in successfully",
         });
-    }
-
-    return res.status(200).json({
-        message: "logged in successfully",
-    });
     } catch (err) {
         return res.status(500).json({
             message: "Error logging in",
@@ -40,7 +40,6 @@ export async function login(req: Request, res: Response) {
 export async function newPerson(req: Request, res: Response) {
     try {
         const data = req.body;
-        console.log(data);
         const salt = bcrypt.genSaltSync();
         const hashedPassword: string = bcrypt.hashSync(data.password, salt);
 
@@ -73,9 +72,6 @@ export async function newPerson(req: Request, res: Response) {
                 class: true,
             },
         });
-
-        console.log(person);
-
         return res.status(201).json({
             message: "person created",
             data: person,
@@ -91,11 +87,11 @@ export async function newPerson(req: Request, res: Response) {
 // GET ALL PERSONS
 export async function getPersons(req: Request, res: Response) {
     try {
-    const persons = await prisma.person.findMany();
-    res.status(201).json({
-        message: "persons fetched",
-        data: persons,
-    });
+        const persons = await prisma.person.findMany();
+        res.status(201).json({
+            message: "persons fetched",
+            data: persons,
+        });
     } catch (err) {
         return res.status(500).json({
             message: "Error fetching persons",
@@ -107,21 +103,21 @@ export async function getPersons(req: Request, res: Response) {
 // GET PERSON BY PERSONAL NUMBER
 export async function getPerson(req: Request, res: Response) {
     try {
-    const { personalNumber } = req.params;
-    const person = await prisma.person.findUnique({
-        where: {
-            personalNumber,
-        },
-    });
-    if (!person) {
-        return res.status(404).json({
-            message: "person not found",
+        const { personalNumber } = req.params;
+        const person = await prisma.person.findUnique({
+            where: {
+                personalNumber,
+            },
         });
-    }
-    return res.status(201).json({
-        message: "person fetched",
-        data: person,
-    });
+        if (!person) {
+            return res.status(404).json({
+                message: "person not found",
+            });
+        }
+        return res.status(201).json({
+            message: "person fetched",
+            data: person,
+        });
     } catch (err) {
         return res.status(500).json({
             message: "Error fetching person",
@@ -133,23 +129,23 @@ export async function getPerson(req: Request, res: Response) {
 // UPDATE PERSON BY PERSONAL NUMBER
 export async function updatePerson(req: Request, res: Response) {
     try {
-    const { personalNumber } = req.params;
-    const data = req.body;
-    const person = await prisma.person.update({
-        where: {
-            personalNumber,
-        },
-        data: {
-            name: data.name,
-            email: data.email,
-            password: data.password,
-            role: data.role,
-        },
-    });
-    return res.status(201).json({
-        message: "person updated",
-        data: person,
-    });
+        const { personalNumber } = req.params;
+        const data = req.body;
+        const person = await prisma.person.update({
+            where: {
+                personalNumber,
+            },
+            data: {
+                name: data.name,
+                email: data.email,
+                password: data.password,
+                role: data.role,
+            },
+        });
+        return res.status(201).json({
+            message: "person updated",
+            data: person,
+        });
     } catch (err) {
         return res.status(500).json({
             message: "Error updating person",
@@ -187,7 +183,6 @@ export async function deletePerson(req: Request, res: Response) {
         });
     }
 }
-
 
 
 

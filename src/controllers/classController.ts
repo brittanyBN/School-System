@@ -1,31 +1,35 @@
 import { Request, Response } from "express";
 import prisma from "../utils/client";
+import { Class } from "../lib/types/class";
+import { Lecture } from "../lib/types/lecture";
+import { Person } from "../lib/types/person";
 
 // POST NEW CLASS
 export async function newClass(req: Request, res: Response) {
     try {
-    const data = req.body;
-    const class_ = await prisma.class.create({
-        data: {
-            slug: data.slug,
-            name: data.name,
-            students: {
-                create: data.students,
+        const data: Class = req.body;
+        const class_ = await prisma.class.create({
+            data: {
+                id: data.id,
+                slug: data.slug,
+                name: data.name,
+                departmentHeadForClassId: data.departmentHeadForClassId,
+                students: {
+                    connect: data.students.map((student: Person) => ({ personalNumber: student.personalNumber })),
+                },
+            },
+            include: {
+                students: {
+                    select: {
+                        name: true,
+                    }
+                }
             }
-        },
-        include: {
-            students: true,
-        }
-    });
-    return res.status(201).json({
-        message: "class created",
-        data: class_,
-    });
-    } catch (err) {
-        return res.status(500).json({
-            message: "class not created",
-            data: err,
         });
+        res.status(201).json(class_);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Could not create new class' });
     }
 }
 
@@ -34,7 +38,7 @@ export async function getClasses(req: Request, res: Response) {
     try {
     const data = req.body;
     const classes = await prisma.class.findMany();
-    res.json({
+    res.status(200).json({
         message: "classes fetched",
         data: classes,
     });
@@ -60,7 +64,7 @@ export async function getClass(req: Request, res: Response) {
             }
         }
     });
-    res.json({
+    res.status(200).json({
         message: "class fetched",
         data: class_,
     });
@@ -76,7 +80,7 @@ export async function getClass(req: Request, res: Response) {
 export async function updateClass(req: Request, res: Response) {
     try {
     const { slug } = req.params;
-    const data = req.body;
+    const data: Class = req.body;
     const class_ = await prisma.class.update({
         where: { slug },
         data: {
@@ -84,7 +88,7 @@ export async function updateClass(req: Request, res: Response) {
             name: data.name,
         },
     });
-    res.json({
+    res.status(201).json({
         message: "class updated",
         data: class_,
     });
@@ -99,24 +103,20 @@ export async function updateClass(req: Request, res: Response) {
 // DELETE CLASS BY ID
 export async function deleteClass(req: Request, res: Response) {
     const { id } = req.params;
-
     try {
         await prisma.$transaction([
-            // Delete related records in other tables
-            prisma.person.deleteMany({
+            prisma.personOnLecture.deleteMany({
                 where: {
-                    class: {
-                        id,
-                    },
-                },
+                    lecture: {
+                        classId: id
+                    }
+                }
             }),
-            // Delete the class record
             prisma.class.delete({
                 where: { id },
             }),
         ]);
-
-        res.json({
+        res.status(200).json({
             message: "Class deleted",
         });
     } catch (error) {
@@ -126,4 +126,5 @@ export async function deleteClass(req: Request, res: Response) {
         });
     }
 }
+
 
