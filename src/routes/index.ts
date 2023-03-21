@@ -20,7 +20,7 @@ import {
     updateLecture,
     deleteLecture,
 } from "../controllers/lectureController";
-// import {seedDb} from "../../prisma/seed";
+import {seedDb} from "../../prisma/seed";
 
 export const routes = express.Router();
 
@@ -48,4 +48,4 @@ routes.delete("/classes/:id", deleteClass);
 routes.delete("/lectures/:id", deleteLecture);
 
 // SEED DATABASE
-// routes.get('/seed', seedDb);
+routes.get('/seed', seedDb);

@@ -13,10 +13,6 @@ export async function newClass(req: Request, res: Response) {
                 id: data.id,
                 slug: data.slug,
                 name: data.name,
-                departmentHeadForClassId: data.departmentHeadForClassId,
-                students: {
-                    connect: data.students.map((student: Person) => ({ personalNumber: student.personalNumber })),
-                },
             },
             include: {
                 students: {

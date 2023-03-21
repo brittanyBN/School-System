@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import prisma from "../utils/client";
 import bcrypt from "bcryptjs";
+import {Lecture} from "../lib/types/lecture";
 
 // LOGIN VALIDATION
 export async function login(req: Request, res: Response) {
@@ -51,7 +52,7 @@ export async function newPerson(req: Request, res: Response) {
                 password: hashedPassword,
                 role: data.role,
                 lectures: {
-                    create: data.lectures ? data.lectures.map((lecture: any) => {
+                    create: data.lectures ? data.lectures.map((lecture: Lecture) => {
                         return {
                             lecture: {
                                 connect: {

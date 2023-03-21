@@ -10,7 +10,5 @@ interface Lecture {
     description: string;
     students: PersonOnLecture[];
     class: Class;
-    classId: string;
     teacher: Person;
-    teacherId: string;
 }

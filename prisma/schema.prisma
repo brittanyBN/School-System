@@ -28,7 +28,7 @@ model Person {
 model Class {
   id                       String  @id @default(cuid())
   slug                     String  @unique
-  name                     String  @unique
+  name                     String
   departmentHeadForClassId String? @unique
 
   // RELATIONS

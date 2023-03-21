@@ -10,10 +10,5 @@ interface Person {
     password: string;
     role: Roles;
     createdAt: Date;
-    lectures: PersonOnLecture[];
-    class?: Class;
     classId?: string;
-    departmentHeadForClass?: Class;
-    departmentHeadForClassId?: string;
-    teacherForLecture: Lecture[];
 }
