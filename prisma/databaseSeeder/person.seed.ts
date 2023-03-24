@@ -11,12 +11,23 @@ const passwordHash = (pw: string): string => {
     return bcrypt.hashSync(pw, 10);
 }
 
+enum Role {
+    STUDENT = "STUDENT",
+    TEACHER = "TEACHER"
+}
+
+function randomRole(): Role {
+    const roles: Role[] = Object.values(Role);
+    const randomIndex: number = Math.floor(Math.random() * roles.length);
+    return roles[randomIndex];
+}
+
 export const fakerPerson = async (): Promise<Person> => ({
     personalNumber: faker.datatype.uuid(),
     name: faker.name.firstName(),
     email: faker.internet.email(),
     password: passwordHash(faker.internet.password()),
-    role: "STUDENT",
+    role: randomRole(),
     createdAt: faker.date.recent(),
     classId: await randomClass(),
     departmentHeadForClassId: null,
@@ -33,6 +44,32 @@ export async function randomPerson() {
     const person = await prisma.person.findMany();
     if (person.length === 0) {
         throw new Error('No persons found');
+    }
+    const random = person[Math.floor(Math.random() * person.length)] as Person
+    return random.personalNumber;
+}
+
+export async function randomStudent() {
+    const person = await prisma.person.findMany({
+        where: {
+            role: "STUDENT"
+        }
+    });
+    if (person.length === 0) {
+        throw new Error('No students found');
+    }
+    const random = person[Math.floor(Math.random() * person.length)] as Person
+    return random.personalNumber;
+}
+
+export async function randomTeacher() {
+    const person = await prisma.person.findMany({
+        where: {
+            role: "TEACHER"
+        }
+    });
+    if (person.length === 0) {
+        throw new Error('No teachers found');
     }
     const random = person[Math.floor(Math.random() * person.length)] as Person
     return random.personalNumber;
