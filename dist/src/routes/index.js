@@ -8,7 +8,6 @@ const express_1 = __importDefault(require("express"));
 const personController_1 = require("../controllers/personController");
 const classController_1 = require("../controllers/classController");
 const lectureController_1 = require("../controllers/lectureController");
-const seed_1 = require("../../prisma/seed");
 exports.routes = express_1.default.Router();
 // POST ROUTES
 exports.routes.post("/persons", personController_1.newPerson);
@@ -29,5 +28,3 @@ exports.routes.patch("/lectures/:slug", lectureController_1.updateLecture);
 exports.routes.delete("/persons/:personalNumber", personController_1.deletePerson);
 exports.routes.delete("/classes/:id", classController_1.deleteClass);
 exports.routes.delete("/lectures/:id", lectureController_1.deleteLecture);
-// SEED DATABASE
-exports.routes.get('/seed', seed_1.seedDb);

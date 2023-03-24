@@ -70,38 +70,8 @@ export async function newPerson(req: Request, res: Response) {
                 },
                 classId: data.classId,
                 departmentHeadForClassId: data.departmentHeadForClassId,
-                teacherForLecture: {
-                    create: data.teacherForLecture ? data.teacherForLecture.map((lecture: Lecture) => {
-                        return {
-                            id: lecture.id,
-                            slug: lecture.slug,
-                            className: lecture.className,
-                            time: lecture.time,
-                            description: lecture.description,
-                            students: {
-                                create: lecture.students ? lecture.students.map((person: PersonOnLecture) => {
-                                    return {
-                                        lectureId: person.lectureId,
-                                        personId: {
-                                            connect: {
-                                                personalNumber: data.personalNumber,
-                                            }
-                                        },
-                                        attended: person.attended,
-                                    }
-                                }) : []
-                            },
-                            classId: lecture.classId,
-                            teacherId: {
-                                connect: {
-                                    personalNumber: data.personalNumber,
-                                }
-                            }
-                        }
-                    }) : []
-                }
             },
-            include: {
+            include:{
                 lectures: {
                     select: {
                         lecture: true,

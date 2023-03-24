@@ -14,11 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteLecture = exports.updateLecture = exports.getLecture = exports.getLectures = exports.newLecture = void 0;
 const client_1 = __importDefault(require("../utils/client"));
+const lecture_schema_1 = require("../lib/schemas/lecture.schema");
 // POST NEW LECTURE
 function newLecture(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const data = req.body;
+            const validateLecture = lecture_schema_1.LectureSchema.parse(data);
             const lecture = yield client_1.default.lecture.create({
                 data: {
                     slug: data.slug,
@@ -117,6 +119,7 @@ function updateLecture(req, res) {
         try {
             const { slug } = req.params;
             const data = req.body;
+            const validateLecture = lecture_schema_1.LectureSchema.parse(data);
             const lecture = yield client_1.default.lecture.update({
                 where: { slug },
                 data: {

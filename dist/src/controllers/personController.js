@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deletePerson = exports.updatePerson = exports.getPerson = exports.getPersons = exports.newPerson = exports.login = void 0;
 const client_1 = __importDefault(require("../utils/client"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
+const person_schema_1 = require("../lib/schemas/person.schema");
 // LOGIN VALIDATION
 function login(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -53,7 +54,8 @@ exports.login = login;
 function newPerson(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const data = req.body;
+            const data = person_schema_1.PersonSchema.parse(req.body);
+            const validatePerson = person_schema_1.PersonSchema.parse(data);
             const salt = bcryptjs_1.default.genSaltSync();
             const hashedPassword = bcryptjs_1.default.hashSync(data.password, salt);
             const person = yield client_1.default.person.create({
@@ -66,15 +68,18 @@ function newPerson(req, res) {
                     lectures: {
                         create: data.lectures ? data.lectures.map((lecture) => {
                             return {
-                                lecture: {
+                                lectureId: lecture.lectureId,
+                                personId: {
                                     connect: {
-                                        id: lecture,
-                                    },
+                                        personalNumber: data.personalNumber,
+                                    }
                                 },
+                                attended: lecture.attended,
                             };
-                        }) : [],
+                        }) : []
                     },
                     classId: data.classId,
+                    departmentHeadForClassId: data.departmentHeadForClassId,
                 },
                 include: {
                     lectures: {
@@ -153,6 +158,7 @@ function updatePerson(req, res) {
         try {
             const { personalNumber } = req.params;
             const data = req.body;
+            const validatePerson = person_schema_1.PersonSchema.parse(data);
             const person = yield client_1.default.person.update({
                 where: {
                     personalNumber,

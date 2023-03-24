@@ -47,9 +47,9 @@ model Lecture {
   // RELATIONS
   students  PersonOnLecture[]
   class     Class?            @relation(fields: [classId], references: [id])
-  classId   String
+  classId   String?
   teacher   Person?           @relation(fields: [teacherId], references: [personalNumber])
-  teacherId String
+  teacherId String?
 }
 
 model PersonOnLecture {

@@ -47,4 +47,3 @@ export async function seedPersons() {
     }
     await prisma.person.createMany({ data: persons  });
 }
-

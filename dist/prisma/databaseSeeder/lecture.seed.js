@@ -12,29 +12,48 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.seedLectures = exports.fakerLecture = void 0;
+exports.seedLectures = exports.randomLecture = exports.fakerLecture = void 0;
 const faker_1 = require("@faker-js/faker");
 const client_1 = __importDefault(require("../../src/utils/client"));
 const class_seed_1 = require("./class.seed");
 const person_seed_1 = require("./person.seed");
 const fakerLecture = () => __awaiter(void 0, void 0, void 0, function* () {
-    return ({
+    return {
         id: faker_1.faker.datatype.uuid(),
         slug: faker_1.faker.lorem.slug(),
         className: faker_1.faker.commerce.department(),
         time: faker_1.faker.datatype.datetime(),
         description: faker_1.faker.commerce.productDescription(),
-        classId: yield (0, class_seed_1.randomClass)(),
-        teacherId: yield (0, person_seed_1.randomPerson)(),
-    });
+        class: {
+            connect: {
+                id: yield (0, class_seed_1.randomClass)(),
+            },
+        },
+        teacher: {
+            connect: {
+                personalNumber: yield (0, person_seed_1.randomPerson)(),
+            },
+        },
+    };
 });
 exports.fakerLecture = fakerLecture;
+function randomLecture() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const lecture = yield client_1.default.lecture.findMany();
+        const random = lecture[Math.floor(Math.random() * lecture.length)];
+        return random.id;
+    });
+}
+exports.randomLecture = randomLecture;
 function seedLectures() {
     return __awaiter(this, void 0, void 0, function* () {
-        for (let i = 0; i < 20; i++) {
-            const lectureData = yield (0, exports.fakerLecture)();
-            yield client_1.default.lecture.createMany({ data: Object.assign({}, lectureData) });
+        const iterations = 5;
+        const lectures = new Array(iterations);
+        for (let i = 0; i < iterations; i++) {
+            lectures.push(yield (0, exports.fakerLecture)());
+            console.count("lecture");
         }
+        yield client_1.default.lecture.createMany({ data: lectures });
     });
 }
 exports.seedLectures = seedLectures;

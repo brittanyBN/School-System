@@ -24,16 +24,23 @@ exports.fakerClass = fakerClass;
 function randomClass() {
     return __awaiter(this, void 0, void 0, function* () {
         const class_ = yield client_1.default.class.findMany();
-        const random = Math.floor(Math.random() * class_.length);
-        return class_[random].id;
+        if (class_.length === 0) {
+            throw new Error('No classes found');
+        }
+        const random = class_[Math.floor(Math.random() * class_.length)];
+        return random.id;
     });
 }
 exports.randomClass = randomClass;
 function seedClasses() {
     return __awaiter(this, void 0, void 0, function* () {
-        for (let i = 0; i < 20; i++) {
-            yield client_1.default.class.createMany({ data: (0, exports.fakerClass)() });
+        const iterations = 5;
+        const classes = new Array(iterations);
+        for (let i = 0; i < iterations; i++) {
+            classes.push((0, exports.fakerClass)());
+            console.count("class");
         }
+        yield client_1.default.class.createMany({ data: classes });
     });
 }
 exports.seedClasses = seedClasses;

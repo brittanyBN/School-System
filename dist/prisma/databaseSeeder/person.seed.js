@@ -16,36 +16,49 @@ exports.seedPersons = exports.randomPerson = exports.personBrittany = exports.fa
 const faker_1 = require("@faker-js/faker");
 const client_1 = __importDefault(require("../../src/utils/client"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
+const class_seed_1 = require("./class.seed");
 const passwordHash = (pw) => {
     return bcryptjs_1.default.hashSync(pw, 10);
 };
-const fakerPerson = () => ({
-    personalNumber: faker_1.faker.datatype.uuid(),
-    name: faker_1.faker.name.firstName(),
-    email: faker_1.faker.internet.email(),
-    password: passwordHash(faker_1.faker.internet.password()),
-    role: "STUDENT",
-    createdAt: faker_1.faker.date.recent(),
+const fakerPerson = () => __awaiter(void 0, void 0, void 0, function* () {
+    return ({
+        personalNumber: faker_1.faker.datatype.uuid(),
+        name: faker_1.faker.name.firstName(),
+        email: faker_1.faker.internet.email(),
+        password: passwordHash(faker_1.faker.internet.password()),
+        role: "STUDENT",
+        createdAt: faker_1.faker.date.recent(),
+        classId: yield (0, class_seed_1.randomClass)(),
+        departmentHeadForClassId: null,
+    });
 });
 exports.fakerPerson = fakerPerson;
 exports.personBrittany = {
     name: "Brittany",
     email: "brittany@aol.com",
     password: "britt",
+    role: "TEACHER",
 };
 function randomPerson() {
     return __awaiter(this, void 0, void 0, function* () {
         const person = yield client_1.default.person.findMany();
-        const random = Math.floor(Math.random() * person.length);
-        return person[random].personalNumber;
+        if (person.length === 0) {
+            throw new Error('No persons found');
+        }
+        const random = person[Math.floor(Math.random() * person.length)];
+        return random.personalNumber;
     });
 }
 exports.randomPerson = randomPerson;
 function seedPersons() {
     return __awaiter(this, void 0, void 0, function* () {
-        for (let i = 0; i < 20; i++) {
-            yield client_1.default.person.createMany({ data: (0, exports.fakerPerson)() });
+        const iterations = 5;
+        const persons = new Array(iterations);
+        for (let i = 0; i < iterations; i++) {
+            persons.push(yield (0, exports.fakerPerson)());
+            console.count("person");
         }
+        yield client_1.default.person.createMany({ data: persons });
     });
 }
 exports.seedPersons = seedPersons;

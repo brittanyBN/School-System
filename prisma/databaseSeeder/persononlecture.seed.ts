@@ -10,10 +10,14 @@ export const fakerPersonOnLecture = async (): Promise<PersonOnLecture> => ({
 });
 
 export async function seedPersonOnLecture() {
-    for (let i = 0; i < 20; i++) {
-        const personOnLectureData = await fakerPersonOnLecture();
-        await prisma.personOnLecture.createMany({ data: { ...personOnLectureData } });
+    const iterations = 5;
+    const personOnLecture = new Array(iterations)
+    for (let i = 0; i < iterations; i++) {
+        personOnLecture.push(await fakerPersonOnLecture())
+        await prisma.personOnLecture.create({ data: await fakerPersonOnLecture() });
+        console.count("personOnLecture")
     }
+    await prisma.personOnLecture.createMany({ data: personOnLecture  });
 }
 
 export async function randomPersonOnLecture() {

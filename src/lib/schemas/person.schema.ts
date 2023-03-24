@@ -16,4 +16,3 @@ export const PersonSchema = z.object({
 export type Person = z.infer<typeof PersonSchema>;
 
 
-
