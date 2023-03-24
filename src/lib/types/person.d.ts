@@ -1,14 +1,12 @@
-import { PersonOnLecture } from "@prisma/client";
-import Roles from "../enums/personRole";
-import {Class} from "./class";
-import { Lecture } from './lecture'
+import {Lecture, PersonOnLecture} from "@prisma/client";
 
-interface Person {
+export interface Person {
     personalNumber: string;
     name: string;
     email: string;
     password: string;
-    role: Roles;
+    role: "STUDENT" | "TEACHER";
     createdAt: Date;
-    classId?: string;
+    classId: string | null;
+    departmentHeadForClassId: string | null;
 }

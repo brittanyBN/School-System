@@ -2,6 +2,7 @@ import { faker } from "@faker-js/faker";
 import prisma from "../../src/utils/client";
 import {fakerPerson} from "./person.seed";
 import {Class} from "@prisma/client";
+import {Person} from "../../src/lib/types/person";
 
 export const fakerClass = (): Class => <Class>({
     id: faker.datatype.uuid(),
@@ -11,12 +12,19 @@ export const fakerClass = (): Class => <Class>({
 
 export async function randomClass() {
     const class_ = await prisma.class.findMany();
-    const random = Math.floor(Math.random() * class_.length);
-    return class_[random].id;
+    if (class_.length === 0) {
+        throw new Error('No classes found');
+    }
+    const random = class_[Math.floor(Math.random() * class_.length)] as Class;
+    return random.id;
 }
 
 export async function seedClasses() {
-    for (let i = 0; i < 20; i++) {
-        await prisma.class.createMany({ data: fakerClass() });
+    const iterations = 5;
+    const classes = new Array(iterations)
+    for (let i = 0; i < iterations; i++) {
+        classes.push(fakerClass())
+        console.count("class")
     }
+    await prisma.class.createMany({ data: classes  });
 }

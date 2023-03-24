@@ -1,14 +1,14 @@
-import {PersonOnLecture} from "@prisma/client";
-import {Class} from "./class";
 import {Person} from "./person";
+import {Class} from "./class";
+import {PersonOnLecture} from "@prisma/client";
 
-interface Lecture {
+export interface Lecture {
     id: string;
     slug: string;
     className: string;
     time: Date;
     description: string;
     students: PersonOnLecture[];
-    class: Class;
-    teacher: Person;
+    classId: string;
+    teacherId: string;
 }

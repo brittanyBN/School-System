@@ -3,19 +3,28 @@ import prisma from "../utils/client";
 import { Class } from "../lib/types/class";
 import { Lecture } from "../lib/types/lecture";
 import { Person } from "../lib/types/person";
+import { z } from "zod";
+import { ClassSchema } from "../lib/schemas/class.schema";
 
 // POST NEW CLASS
 export async function newClass(req: Request, res: Response) {
     try {
         const data: Class = req.body;
+        const validateClass = ClassSchema.parse(data);
         const class_ = await prisma.class.create({
             data: {
                 id: data.id,
                 slug: data.slug,
                 name: data.name,
+                departmentHeadForClassId: data.departmentHeadForClassId
             },
             include: {
                 students: {
+                    select: {
+                        name: true,
+                    }
+                },
+                departmentHead: {
                     select: {
                         name: true,
                     }
@@ -77,11 +86,13 @@ export async function updateClass(req: Request, res: Response) {
     try {
     const { slug } = req.params;
     const data: Class = req.body;
+    const validateClass = ClassSchema.parse(data);
     const class_ = await prisma.class.update({
         where: { slug },
         data: {
             slug: data.slug,
             name: data.name,
+            departmentHeadForClassId: data.departmentHeadForClassId
         },
     });
     res.status(201).json({

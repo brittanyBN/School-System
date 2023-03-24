@@ -2,12 +2,24 @@ import { Request, Response } from "express";
 import { seedPersons } from "./databaseSeeder/person.seed";
 import { seedClasses } from "./databaseSeeder/class.seed";
 import { seedLectures } from "./databaseSeeder/lecture.seed";
+import {PrismaClient} from "@prisma/client";
+import {seedPersonOnLecture} from "./databaseSeeder/persononlecture.seed";
+import dotenv from "dotenv";
 
-export async function seedDb(req: Request, res: Response) {
-    await seedPersons();
+const prisma = new PrismaClient();
+
+
+export async function main() {
+    dotenv.config()
     await seedClasses();
+    await seedPersons();
     await seedLectures();
-    return res.status(201).json({
-        message: "Seeder done",
-    });
+    await seedPersonOnLecture();
 }
+
+main()
+    .catch((e) => console.error(e))
+    .finally(async () => {
+        await prisma.$disconnect();
+    });
+//  npx prisma db seed

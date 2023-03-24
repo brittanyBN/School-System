@@ -26,15 +26,15 @@ model Person {
 }
 
 model Class {
-  id                       String  @id @default(cuid())
-  slug                     String  @unique
-  name                     String
-  departmentHeadForClassId String? @unique
+  id   String @id @default(cuid())
+  slug String @unique
+  name String
 
   // RELATIONS
-  students       Person[]
-  departmentHead Person?   @relation("DepartmentHead", fields: [departmentHeadForClassId], references: [personalNumber])
-  lectures       Lecture[]
+  students                 Person[]
+  departmentHead           Person?   @relation("DepartmentHead", fields: [departmentHeadForClassId], references: [personalNumber])
+  departmentHeadForClassId String?   @unique
+  lectures                 Lecture[]
 }
 
 model Lecture {
@@ -46,18 +46,18 @@ model Lecture {
 
   // RELATIONS
   students  PersonOnLecture[]
-  class     Class             @relation(fields: [classId], references: [id])
+  class     Class?            @relation(fields: [classId], references: [id])
   classId   String
-  teacher   Person            @relation(fields: [teacherId], references: [personalNumber])
+  teacher   Person?           @relation(fields: [teacherId], references: [personalNumber])
   teacherId String
 }
 
 model PersonOnLecture {
-  person    Person  @relation(fields: [personId], references: [personalNumber])
+  person    Person?  @relation(fields: [personId], references: [personalNumber])
   personId  String // relation scalar field (used in the `@relation` attribute above)
-  lecture   Lecture @relation(fields: [lectureId], references: [id])
+  lecture   Lecture? @relation(fields: [lectureId], references: [id])
   lectureId String // relation scalar field (used in the `@relation` attribute above)
-  attended  Boolean @default(false)
+  attended  Boolean  @default(false)
 
   @@id([personId, lectureId])
 }

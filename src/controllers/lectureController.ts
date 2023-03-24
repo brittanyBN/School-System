@@ -2,11 +2,13 @@ import { Request, Response } from "express";
 import prisma from "../utils/client";
 import {Person} from "../lib/types/person";
 import {PersonOnLecture} from "@prisma/client";
+import {LectureSchema} from "../lib/schemas/lecture.schema";
 
 // POST NEW LECTURE
 export async function newLecture(req: Request, res: Response) {
     try {
         const data = req.body;
+        const validateLecture = LectureSchema.parse(data);
         const lecture = await prisma.lecture.create({
             data: {
                 slug: data.slug,
@@ -96,6 +98,7 @@ export async function updateLecture(req: Request, res: Response) {
     try {
         const { slug } = req.params;
         const data = req.body;
+        const validateLecture = LectureSchema.parse(data);
         const lecture = await prisma.lecture.update({
             where: { slug },
             data: {
