@@ -30,6 +30,12 @@ export async function newClass(req: Request, res: Response) {
                 }
             }
         });
+        await prisma.person.update({
+            where: { personalNumber: data.departmentHeadForClassId },
+            data: {
+                departmentHeadForClassId: data.departmentHeadForClassId
+            }
+        });
         res.status(201).json(class_);
     } catch (error) {
         console.error(error);
@@ -82,27 +88,43 @@ export async function getClass(req: Request, res: Response) {
 
 // UPDATE CLASS BY SLUG
 export async function updateClass(req: Request, res: Response) {
-    try {
     const { slug } = req.params;
     const data: Class = req.body;
     const validateClass = ClassSchema.parse(data);
-    const class_ = await prisma.class.update({
-        where: { slug },
-        data: {
-            slug: data.slug,
-            name: data.name,
-            departmentHeadForClassId: data.departmentHeadForClassId
-        },
-    });
-    res.status(201).json({
-        message: "class updated",
-        data: class_,
-    });
-    } catch (err) {
-        return res.status(500).json({
-            message: "class not updated",
-            data: err,
+    try {
+        const class_ = await prisma.class.update({
+            where: { slug },
+            data: {
+                slug: data.slug,
+                name: data.name,
+                departmentHeadForClassId: data.departmentHeadForClassId
+            },
+            include: {
+                students: {
+                    select: {
+                        name: true,
+                    }
+                },
+                departmentHead: {
+                    select: {
+                        name: true,
+                    }
+                }
+            }
         });
+        await prisma.person.update({
+            where: { personalNumber: data.departmentHeadForClassId },
+            data: {
+                departmentHeadForClassId: data.departmentHeadForClassId
+            }
+        });
+        res.status(200).json({
+            message: "class updated",
+            data: class_,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Could not update class' });
     }
 }
 
@@ -122,6 +144,16 @@ export async function deleteClass(req: Request, res: Response) {
                 where: { id },
             }),
         ]);
+        await prisma.person.updateMany({
+            where: {
+                class: {
+                     id
+                }
+            },
+            data: {
+                departmentHeadForClassId: null
+            }
+        });
         res.status(200).json({
             message: "Class deleted",
         });

@@ -120,6 +120,20 @@ function updateLecture(req, res) {
                     className: data.className,
                     time: data.time,
                     description: data.description,
+                    students: {
+                        create: data.students ? data.students.map((person) => {
+                            return {
+                                person: {
+                                    connect: {
+                                        personalNumber: person
+                                    }
+                                },
+                            };
+                        }) : []
+                    },
+                },
+                include: {
+                    students: true,
                 },
             });
             return res.json({

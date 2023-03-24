@@ -32,7 +32,7 @@ function randomRole() {
 }
 const fakerPerson = () => __awaiter(void 0, void 0, void 0, function* () {
     return ({
-        personalNumber: faker_1.faker.datatype.uuid(),
+        personalNumber: faker_1.faker.random.numeric(10),
         name: faker_1.faker.name.firstName(),
         email: faker_1.faker.internet.email(),
         password: passwordHash(faker_1.faker.internet.password()),

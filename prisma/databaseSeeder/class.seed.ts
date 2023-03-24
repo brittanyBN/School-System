@@ -5,8 +5,8 @@ import {Class} from "@prisma/client";
 import {Person} from "../../src/lib/types/person";
 
 export const fakerClass = (): Class => <Class>({
-    id: faker.datatype.uuid(),
-    slug: faker.lorem.slug(),
+    id: faker.random.numeric(10),
+    slug: faker.lorem.slug(1),
     name: faker.commerce.department(),
 });
 

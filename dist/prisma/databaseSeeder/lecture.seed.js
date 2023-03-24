@@ -19,8 +19,8 @@ const class_seed_1 = require("./class.seed");
 const person_seed_1 = require("./person.seed");
 const fakerLecture = () => __awaiter(void 0, void 0, void 0, function* () {
     return {
-        id: faker_1.faker.datatype.uuid(),
-        slug: faker_1.faker.lorem.slug(),
+        id: faker_1.faker.random.numeric(10),
+        slug: faker_1.faker.lorem.slug(1),
         className: faker_1.faker.commerce.department(),
         time: faker_1.faker.datatype.datetime(),
         description: faker_1.faker.commerce.productDescription(),

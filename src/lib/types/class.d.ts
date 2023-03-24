@@ -5,6 +5,6 @@ export interface Class {
     slug: string;
     name: string;
     students: Person[];
-    departmentHeadForClassId: string | null | undefined;
+    departmentHeadForClassId: string | undefined;
     lectures: Lecture
 }

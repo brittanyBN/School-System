@@ -16,8 +16,8 @@ exports.seedClasses = exports.randomClass = exports.fakerClass = void 0;
 const faker_1 = require("@faker-js/faker");
 const client_1 = __importDefault(require("../../src/utils/client"));
 const fakerClass = () => ({
-    id: faker_1.faker.datatype.uuid(),
-    slug: faker_1.faker.lorem.slug(),
+    id: faker_1.faker.random.numeric(10),
+    slug: faker_1.faker.lorem.slug(1),
     name: faker_1.faker.commerce.department(),
 });
 exports.fakerClass = fakerClass;

@@ -40,6 +40,12 @@ function newClass(req, res) {
                     }
                 }
             });
+            yield client_1.default.person.update({
+                where: { personalNumber: data.departmentHeadForClassId },
+                data: {
+                    departmentHeadForClassId: data.departmentHeadForClassId
+                }
+            });
             res.status(201).json(class_);
         }
         catch (error) {
@@ -101,10 +107,10 @@ exports.getClass = getClass;
 // UPDATE CLASS BY SLUG
 function updateClass(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const { slug } = req.params;
+        const data = req.body;
+        const validateClass = class_schema_1.ClassSchema.parse(data);
         try {
-            const { slug } = req.params;
-            const data = req.body;
-            const validateClass = class_schema_1.ClassSchema.parse(data);
             const class_ = yield client_1.default.class.update({
                 where: { slug },
                 data: {
@@ -112,17 +118,33 @@ function updateClass(req, res) {
                     name: data.name,
                     departmentHeadForClassId: data.departmentHeadForClassId
                 },
+                include: {
+                    students: {
+                        select: {
+                            name: true,
+                        }
+                    },
+                    departmentHead: {
+                        select: {
+                            name: true,
+                        }
+                    }
+                }
             });
-            res.status(201).json({
+            yield client_1.default.person.update({
+                where: { personalNumber: data.departmentHeadForClassId },
+                data: {
+                    departmentHeadForClassId: data.departmentHeadForClassId
+                }
+            });
+            res.status(200).json({
                 message: "class updated",
                 data: class_,
             });
         }
-        catch (err) {
-            return res.status(500).json({
-                message: "class not updated",
-                data: err,
-            });
+        catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Could not update class' });
         }
     });
 }
@@ -144,6 +166,16 @@ function deleteClass(req, res) {
                     where: { id },
                 }),
             ]);
+            yield client_1.default.person.updateMany({
+                where: {
+                    class: {
+                        id
+                    }
+                },
+                data: {
+                    departmentHeadForClassId: null
+                }
+            });
             res.status(200).json({
                 message: "Class deleted",
             });

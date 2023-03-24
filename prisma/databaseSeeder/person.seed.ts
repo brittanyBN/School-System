@@ -23,7 +23,7 @@ function randomRole(): Role {
 }
 
 export const fakerPerson = async (): Promise<Person> => ({
-    personalNumber: faker.datatype.uuid(),
+    personalNumber: faker.random.numeric(10),
     name: faker.name.firstName(),
     email: faker.internet.email(),
     password: passwordHash(faker.internet.password()),
