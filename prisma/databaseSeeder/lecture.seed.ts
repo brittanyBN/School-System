@@ -4,13 +4,15 @@ import {randomClass} from "./class.seed";
 import {randomPerson} from "./person.seed";
 import {Lecture, Prisma} from "@prisma/client";
 
-export const fakerLecture = async (): Promise<Prisma.LectureCreateInput> => {
+export const fakerLecture = async (): Promise<{ classId: string; teacherId: string; description: string; className: string; id: string; time: Date; slug: string }> => {
     return {
         id: faker.datatype.uuid(),
         slug: faker.lorem.slug(),
         className: faker.commerce.department(),
         time: faker.datatype.datetime(),
         description: faker.commerce.productDescription(),
+        classId: await randomClass(),
+        teacherId: await randomPerson(),
     };
 };
 
