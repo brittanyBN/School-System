@@ -13,7 +13,6 @@ export async function newClass(req: Request, res: Response) {
         const validateClass = ClassSchema.parse(data);
         const class_ = await prisma.class.create({
             data: {
-                id: data.id,
                 slug: data.slug,
                 name: data.name,
                 departmentHeadForClassId: data.departmentHeadForClassId

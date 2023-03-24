@@ -1,7 +1,6 @@
 import {z} from "zod";
 
 export const ClassSchema = z.object({
-    id: z.string(),
     name: z.string(),
     slug: z.string(),
     students: z.array(z.string()).optional(),

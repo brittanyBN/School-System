@@ -1,5 +1,3 @@
-import {Lecture, PersonOnLecture} from "@prisma/client";
-
 export interface Person {
     personalNumber: string;
     name: string;

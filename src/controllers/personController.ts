@@ -55,19 +55,6 @@ export async function newPerson(req: Request, res: Response) {
                 email: data.email,
                 password: hashedPassword,
                 role: data.role,
-                lectures: {
-                    create: data.lectures ? data.lectures.map((lecture: PersonOnLecture) => {
-                        return {
-                            lectureId: lecture.lectureId,
-                            personId: {
-                                connect: {
-                                    personalNumber: data.personalNumber,
-                                }
-                            },
-                            attended: lecture.attended,
-                        }
-                    })  : []
-                },
                 classId: data.classId,
                 departmentHeadForClassId: data.departmentHeadForClassId,
             },

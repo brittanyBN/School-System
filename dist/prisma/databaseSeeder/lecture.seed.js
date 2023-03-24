@@ -24,16 +24,8 @@ const fakerLecture = () => __awaiter(void 0, void 0, void 0, function* () {
         className: faker_1.faker.commerce.department(),
         time: faker_1.faker.datatype.datetime(),
         description: faker_1.faker.commerce.productDescription(),
-        class: {
-            connect: {
-                id: yield (0, class_seed_1.randomClass)(),
-            },
-        },
-        teacher: {
-            connect: {
-                personalNumber: yield (0, person_seed_1.randomPerson)(),
-            },
-        },
+        classId: yield (0, class_seed_1.randomClass)(),
+        teacherId: yield (0, person_seed_1.randomTeacher)(),
     };
 });
 exports.fakerLecture = fakerLecture;

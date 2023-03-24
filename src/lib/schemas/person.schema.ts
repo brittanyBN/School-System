@@ -8,7 +8,7 @@ export const PersonSchema = z.object({
     email: z.string(),
     password: z.string(),
     role: z.enum(['STUDENT', 'TEACHER']),
-    createdAt: z.date(),
+    createdAt: z.coerce.date(),
     classId: z.string().nullable().optional(),
     departmentHeadForClassId: z.string().nullable().optional(),
 });

@@ -8,7 +8,7 @@ exports.PersonSchema = zod_1.z.object({
     email: zod_1.z.string(),
     password: zod_1.z.string(),
     role: zod_1.z.enum(['STUDENT', 'TEACHER']),
-    createdAt: zod_1.z.date(),
+    createdAt: zod_1.z.coerce.date(),
     classId: zod_1.z.string().nullable().optional(),
     departmentHeadForClassId: zod_1.z.string().nullable().optional(),
 });

@@ -65,19 +65,6 @@ function newPerson(req, res) {
                     email: data.email,
                     password: hashedPassword,
                     role: data.role,
-                    lectures: {
-                        create: data.lectures ? data.lectures.map((lecture) => {
-                            return {
-                                lectureId: lecture.lectureId,
-                                personId: {
-                                    connect: {
-                                        personalNumber: data.personalNumber,
-                                    }
-                                },
-                                attended: lecture.attended,
-                            };
-                        }) : []
-                    },
                     classId: data.classId,
                     departmentHeadForClassId: data.departmentHeadForClassId,
                 },

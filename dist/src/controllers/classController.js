@@ -23,7 +23,6 @@ function newClass(req, res) {
             const validateClass = class_schema_1.ClassSchema.parse(data);
             const class_ = yield client_1.default.class.create({
                 data: {
-                    id: data.id,
                     slug: data.slug,
                     name: data.name,
                     departmentHeadForClassId: data.departmentHeadForClassId

@@ -13,8 +13,8 @@ export async function newLecture(req: Request, res: Response) {
             data: {
                 slug: data.slug,
                 className: data.className,
-                time: data.time,
                 description: data.description,
+                time: data.time,
                 students: {
                     create: data.students ? data.students.map((person: Person) => {
                         return {
@@ -26,18 +26,11 @@ export async function newLecture(req: Request, res: Response) {
                         }
                     }) : []
                 },
-                class: {
-                    connect: {
-                        id: data.class,
-                    },
-                },
-                teacher: {
-                    connect: {
-                        personalNumber: data.teacher,
-                    }
-                }
+                classId: data.class,
+                teacherId: data.teacher,
             },
         });
+        console.log(data);
         return res.json({
             message: "lecture created",
             data: lecture,
