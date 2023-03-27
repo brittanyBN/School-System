@@ -3,8 +3,6 @@ import prisma from "../utils/client";
 import bcrypt from "bcryptjs";
 import {z} from "zod";
 import {PersonSchema} from "../lib/schemas/person.schema";
-import {PersonOnLecture} from "@prisma/client";
-import {Lecture} from "../lib/schemas/lecture.schema";
 
 // LOGIN VALIDATION
 export async function login(req: Request, res: Response) {
@@ -136,6 +134,8 @@ export async function updatePerson(req: Request, res: Response) {
                 email: data.email,
                 password: data.password,
                 role: data.role,
+                classId: data.classId,
+                departmentHeadForClassId: data.departmentHeadForClassId
             },
         });
         return res.status(201).json({
@@ -149,6 +149,37 @@ export async function updatePerson(req: Request, res: Response) {
         });
     }
 }
+
+// UPDATE PERSON ATTENDANCE BY PERSONAL NUMBER AND LECTURE ID
+export async function updatePersonAttendance(req: Request, res: Response) {
+    try {
+    const { personalNumber, id } = req.params;
+    const data = req.body;
+    console.log(data)
+    const updatedAttendance = await prisma.personOnLecture.update({
+        where: {
+            personId_lectureId: {
+                personId: personalNumber,
+                lectureId: id
+            }
+        },
+        data: {
+            attended: data.attended
+        }
+    })
+    console.log(updatedAttendance)
+    return res.status(201).json({
+        message: "person attendance updated",
+        data: updatedAttendance,
+    });
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error updating person attendance",
+            error: err,
+        });
+    }
+}
+
 
 // DELETE PERSON BY PERSONAL NUMBER AND ALL RELATED ENTRIES
 export async function deletePerson(req: Request, res: Response) {

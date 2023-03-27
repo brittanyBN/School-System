@@ -4,6 +4,7 @@ import {
     getPersons,
     newPerson,
     updatePerson,
+    updatePersonAttendance,
     deletePerson,
 } from "../controllers/personController";
 import {
@@ -40,6 +41,7 @@ routes.get("/lectures/:slug", getLecture);
 routes.patch("/persons/:personalNumber", updatePerson);
 routes.patch("/classes/:id", updateClass);
 routes.patch("/lectures/:slug", updateLecture);
+routes.patch("/persons/:personalNumber/:id", updatePersonAttendance);
 
 // DELETE ROUTES
 routes.delete("/persons/:personalNumber", deletePerson);

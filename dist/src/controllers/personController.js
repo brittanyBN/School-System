@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deletePerson = exports.updatePerson = exports.getPerson = exports.getPersons = exports.newPerson = exports.login = void 0;
+exports.deletePerson = exports.updatePersonAttendance = exports.updatePerson = exports.getPerson = exports.getPersons = exports.newPerson = exports.login = void 0;
 const client_1 = __importDefault(require("../utils/client"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const person_schema_1 = require("../lib/schemas/person.schema");
@@ -155,6 +155,8 @@ function updatePerson(req, res) {
                     email: data.email,
                     password: data.password,
                     role: data.role,
+                    classId: data.classId,
+                    departmentHeadForClassId: data.departmentHeadForClassId
                 },
             });
             return res.status(201).json({
@@ -171,6 +173,39 @@ function updatePerson(req, res) {
     });
 }
 exports.updatePerson = updatePerson;
+// UPDATE PERSON ATTENDANCE BY PERSONAL NUMBER AND LECTURE ID
+function updatePersonAttendance(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const { personalNumber, id } = req.params;
+            const data = req.body;
+            console.log(data);
+            const updatedAttendance = yield client_1.default.personOnLecture.update({
+                where: {
+                    personId_lectureId: {
+                        personId: personalNumber,
+                        lectureId: id
+                    }
+                },
+                data: {
+                    attended: data.attended
+                }
+            });
+            console.log(updatedAttendance);
+            return res.status(201).json({
+                message: "person attendance updated",
+                data: updatedAttendance,
+            });
+        }
+        catch (err) {
+            return res.status(500).json({
+                message: "Error updating person attendance",
+                error: err,
+            });
+        }
+    });
+}
+exports.updatePersonAttendance = updatePersonAttendance;
 // DELETE PERSON BY PERSONAL NUMBER AND ALL RELATED ENTRIES
 function deletePerson(req, res) {
     return __awaiter(this, void 0, void 0, function* () {

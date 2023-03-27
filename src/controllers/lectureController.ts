@@ -101,6 +101,17 @@ export async function updateLecture(req: Request, res: Response) {
                 description: data.description,
                 classId: data.class,
                 teacherId: data.teacher,
+                students: {
+                    create: data.students ? data.students.map((person: Person) => {
+                        return {
+                            person: {
+                                connect: {
+                                    personalNumber: person
+                                }
+                            }
+                        }
+                    }) : []
+                }
             },
             include: {
                 students: true,

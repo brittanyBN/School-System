@@ -122,6 +122,17 @@ function updateLecture(req, res) {
                     description: data.description,
                     classId: data.class,
                     teacherId: data.teacher,
+                    students: {
+                        create: data.students ? data.students.map((person) => {
+                            return {
+                                person: {
+                                    connect: {
+                                        personalNumber: person
+                                    }
+                                }
+                            };
+                        }) : []
+                    }
                 },
                 include: {
                     students: true,

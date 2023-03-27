@@ -24,6 +24,7 @@ exports.routes.get("/lectures/:slug", lectureController_1.getLecture);
 exports.routes.patch("/persons/:personalNumber", personController_1.updatePerson);
 exports.routes.patch("/classes/:id", classController_1.updateClass);
 exports.routes.patch("/lectures/:slug", lectureController_1.updateLecture);
+exports.routes.patch("/persons/:personalNumber/:id", personController_1.updatePersonAttendance);
 // DELETE ROUTES
 exports.routes.delete("/persons/:personalNumber", personController_1.deletePerson);
 exports.routes.delete("/classes/:id", classController_1.deleteClass);
