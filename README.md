@@ -1,6 +1,6 @@
 # School-System
 
-### IN PROGRESS - will finish end of day March 25
+### IN PROGRESS 
 
 ## Purpose of Project
 
