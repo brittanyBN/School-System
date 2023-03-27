@@ -104,15 +104,15 @@ function getClass(req, res) {
     });
 }
 exports.getClass = getClass;
-// UPDATE CLASS BY SLUG
+// UPDATE CLASS BY ID
 function updateClass(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { slug } = req.params;
+        const { id } = req.params;
         const data = req.body;
         const validateClass = class_schema_1.ClassSchema.parse(data);
         try {
             const class_ = yield client_1.default.class.update({
-                where: { slug },
+                where: { id },
                 data: {
                     slug: data.slug,
                     name: data.name,

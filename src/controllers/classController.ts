@@ -86,14 +86,14 @@ export async function getClass(req: Request, res: Response) {
     }
 }
 
-// UPDATE CLASS BY SLUG
+// UPDATE CLASS BY ID
 export async function updateClass(req: Request, res: Response) {
-    const { slug } = req.params;
+    const { id } = req.params;
     const data: Class = req.body;
     const validateClass = ClassSchema.parse(data);
     try {
         const class_ = await prisma.class.update({
-            where: { slug },
+            where: { id },
             data: {
                 slug: data.slug,
                 name: data.name,

@@ -26,7 +26,7 @@ function newLecture(req, res) {
                     slug: data.slug,
                     className: data.className,
                     description: data.description,
-                    time: data.time,
+                    time: new Date(data.time).toISOString(),
                     students: {
                         create: data.students ? data.students.map((person) => {
                             return {
@@ -118,23 +118,14 @@ function updateLecture(req, res) {
                 data: {
                     slug: data.slug,
                     className: data.className,
-                    time: data.time,
+                    time: new Date(data.time).toISOString(),
                     description: data.description,
-                    students: {
-                        create: data.students ? data.students.map((person) => {
-                            return {
-                                person: {
-                                    connect: {
-                                        personalNumber: person
-                                    }
-                                },
-                            };
-                        }) : []
-                    },
+                    classId: data.class,
+                    teacherId: data.teacher,
                 },
                 include: {
                     students: true,
-                },
+                }
             });
             return res.json({
                 message: "lecture updated",

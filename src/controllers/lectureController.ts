@@ -14,7 +14,7 @@ export async function newLecture(req: Request, res: Response) {
                 slug: data.slug,
                 className: data.className,
                 description: data.description,
-                time: data.time,
+                time: new Date(data.time).toISOString(),
                 students: {
                     create: data.students ? data.students.map((person: Person) => {
                         return {
@@ -97,23 +97,14 @@ export async function updateLecture(req: Request, res: Response) {
             data: {
                 slug: data.slug,
                 className: data.className,
-                time: data.time,
+                time: new Date(data.time).toISOString(),
                 description: data.description,
-                students: {
-                    create: data.students ? data.students.map((person: Person) => {
-                        return {
-                            person: {
-                                connect: {
-                                    personalNumber: person
-                                }
-                            },
-                        }
-                    }) : []
-                },
+                classId: data.class,
+                teacherId: data.teacher,
             },
             include: {
                 students: true,
-            },
+            }
         });
         return res.json({
             message: "lecture updated",

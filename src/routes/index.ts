@@ -38,7 +38,7 @@ routes.get("/lectures/:slug", getLecture);
 
 // PATCH ROUTES
 routes.patch("/persons/:personalNumber", updatePerson);
-routes.patch("/classes/:slug", updateClass);
+routes.patch("/classes/:id", updateClass);
 routes.patch("/lectures/:slug", updateLecture);
 
 // DELETE ROUTES

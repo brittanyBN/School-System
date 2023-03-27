@@ -22,7 +22,7 @@ exports.routes.get("/lectures", lectureController_1.getLectures);
 exports.routes.get("/lectures/:slug", lectureController_1.getLecture);
 // PATCH ROUTES
 exports.routes.patch("/persons/:personalNumber", personController_1.updatePerson);
-exports.routes.patch("/classes/:slug", classController_1.updateClass);
+exports.routes.patch("/classes/:id", classController_1.updateClass);
 exports.routes.patch("/lectures/:slug", lectureController_1.updateLecture);
 // DELETE ROUTES
 exports.routes.delete("/persons/:personalNumber", personController_1.deletePerson);
