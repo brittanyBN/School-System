@@ -1,7 +1,9 @@
 import express from "express";
+
 import {
     getPerson,
     getPersons,
+    getPersonLectures,
     newPerson,
     updatePerson,
     updatePersonAttendance,
@@ -32,6 +34,7 @@ routes.post("/lectures", newLecture);
 // GET ROUTES
 routes.get("/persons", getPersons);
 routes.get("/persons/:personalNumber", getPerson);
+routes.get("/persons/:personalNumber/lectures", getPersonLectures);
 routes.get("/classes", getClasses);
 routes.get("/classes/:slug", getClass);
 routes.get("/lectures", getLectures);

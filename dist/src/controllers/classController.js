@@ -48,9 +48,11 @@ function newClass(req, res) {
             });
             res.status(201).json(class_);
         }
-        catch (error) {
-            console.error(error);
-            res.status(500).json({ error: 'Could not create new class' });
+        catch (err) {
+            return res.status(500).json({
+                message: "Error creating class",
+                error: err,
+            });
         }
     });
 }
@@ -68,8 +70,8 @@ function getClasses(req, res) {
         }
         catch (err) {
             return res.status(500).json({
-                message: "classes not fetched",
-                data: err,
+                message: "Error fetching classes",
+                error: err,
             });
         }
     });
@@ -90,6 +92,11 @@ function getClass(req, res) {
                     }
                 }
             });
+            if (class_ === null) {
+                return res.status(404).json({
+                    message: "Class not found",
+                });
+            }
             res.status(200).json({
                 message: "class fetched",
                 data: class_,
@@ -97,8 +104,8 @@ function getClass(req, res) {
         }
         catch (err) {
             return res.status(500).json({
-                message: "class not fetched",
-                data: err,
+                message: "Error fetching class",
+                error: err,
             });
         }
     });
@@ -142,9 +149,11 @@ function updateClass(req, res) {
                 data: class_,
             });
         }
-        catch (error) {
-            console.error(error);
-            res.status(500).json({ error: 'Could not update class' });
+        catch (err) {
+            return res.status(500).json({
+                message: "Error updating class",
+                error: err,
+            });
         }
     });
 }
@@ -180,10 +189,10 @@ function deleteClass(req, res) {
                 message: "Class deleted",
             });
         }
-        catch (error) {
-            res.status(500).json({
-                message: "Failed to delete class",
-                error,
+        catch (err) {
+            return res.status(500).json({
+                message: "Error deleting class",
+                error: err,
             });
         }
     });

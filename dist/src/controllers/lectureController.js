@@ -42,17 +42,15 @@ function newLecture(req, res) {
                     teacherId: data.teacher,
                 },
             });
-            console.log(data);
             return res.json({
                 message: "lecture created",
                 data: lecture,
             });
         }
         catch (err) {
-            console.log(err);
             return res.status(500).json({
-                message: "lecture not created",
-                data: err,
+                message: "Error creating lecture",
+                error: err,
             });
         }
     });
@@ -74,8 +72,8 @@ function getLectures(req, res) {
         }
         catch (err) {
             return res.status(500).json({
-                message: "lectures not fetched",
-                data: err,
+                message: "Error fetching lectures",
+                error: err,
             });
         }
     });
@@ -92,6 +90,11 @@ function getLecture(req, res) {
                     students: true,
                 },
             });
+            if (lecture === null) {
+                return res.status(404).json({
+                    message: "Lecture not found",
+                });
+            }
             res.json({
                 message: "lecture fetched",
                 data: lecture,
@@ -99,8 +102,8 @@ function getLecture(req, res) {
         }
         catch (err) {
             return res.status(500).json({
-                message: "lecture not fetched",
-                data: err,
+                message: "Error fetching lecture",
+                error: err,
             });
         }
     });
@@ -138,15 +141,17 @@ function updateLecture(req, res) {
                     students: true,
                 }
             });
+            console.log(lecture);
             return res.json({
                 message: "lecture updated",
                 data: lecture,
             });
         }
         catch (err) {
+            console.log(err);
             return res.status(500).json({
-                message: "lecture not updated",
-                data: err,
+                message: "Error updating lecture",
+                error: err,
             });
         }
     });
@@ -174,10 +179,9 @@ function deleteLecture(req, res) {
             });
         }
         catch (err) {
-            console.log(err);
             return res.status(500).json({
-                message: "lecture not deleted",
-                data: err,
+                message: "Error deleting lecture",
+                error: err,
             });
         }
     });

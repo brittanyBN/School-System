@@ -1,4 +1,3 @@
-import { Request, Response } from "express";
 import { seedPersons } from "./databaseSeeder/person.seed";
 import { seedClasses } from "./databaseSeeder/class.seed";
 import { seedLectures } from "./databaseSeeder/lecture.seed";
@@ -22,4 +21,3 @@ main()
     .finally(async () => {
         await prisma.$disconnect();
     });
-//  npx prisma db seed

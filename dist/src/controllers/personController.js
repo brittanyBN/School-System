@@ -12,44 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deletePerson = exports.updatePersonAttendance = exports.updatePerson = exports.getPerson = exports.getPersons = exports.newPerson = exports.login = void 0;
+exports.deletePerson = exports.updatePersonAttendance = exports.updatePerson = exports.getPersonLectures = exports.getPerson = exports.getPersons = exports.newPerson = void 0;
 const client_1 = __importDefault(require("../utils/client"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const person_schema_1 = require("../lib/schemas/person.schema");
-// LOGIN VALIDATION
-function login(req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const { personalNumber, password } = req.body;
-            const person = yield client_1.default.person.findUnique({
-                where: {
-                    personalNumber,
-                },
-            });
-            if (!person) {
-                return res.status(404).json({
-                    message: "invalid username or password",
-                });
-            }
-            const match = bcryptjs_1.default.compareSync(password, person.password);
-            if (!match) {
-                return res.status(404).json({
-                    message: "invalid username or password",
-                });
-            }
-            return res.status(200).json({
-                message: "logged in successfully",
-            });
-        }
-        catch (err) {
-            return res.status(500).json({
-                message: "Error logging in",
-                error: err,
-            });
-        }
-    });
-}
-exports.login = login;
 // POST NEW PERSON
 function newPerson(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -139,6 +105,42 @@ function getPerson(req, res) {
     });
 }
 exports.getPerson = getPerson;
+// GET ALL LECTURES OF A PERSON BY THEIR PERSONAL NUMBER
+function getPersonLectures(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const { personalNumber } = req.params;
+            const person = yield client_1.default.person.findUnique({
+                where: {
+                    personalNumber,
+                },
+                include: {
+                    lectures: {
+                        select: {
+                            lecture: true,
+                        }
+                    }
+                }
+            });
+            if (!person) {
+                return res.status(404).json({
+                    message: "person not found",
+                });
+            }
+            return res.status(201).json({
+                message: "person lectures fetched",
+                data: person.lectures,
+            });
+        }
+        catch (err) {
+            return res.status(500).json({
+                message: "Error fetching person lectures",
+                error: err,
+            });
+        }
+    });
+}
+exports.getPersonLectures = getPersonLectures;
 // UPDATE PERSON BY PERSONAL NUMBER
 function updatePerson(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -191,7 +193,6 @@ function updatePersonAttendance(req, res) {
                     attended: data.attended
                 }
             });
-            console.log(updatedAttendance);
             return res.status(201).json({
                 message: "person attendance updated",
                 data: updatedAttendance,
@@ -229,10 +230,10 @@ function deletePerson(req, res) {
                 message: "Person deleted",
             });
         }
-        catch (error) {
+        catch (err) {
             return res.status(500).json({
-                message: "Failed to delete person",
-                error,
+                message: "Error deleting person",
+                error: err,
             });
         }
     });

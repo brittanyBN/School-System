@@ -16,6 +16,7 @@ exports.routes.post("/lectures", lectureController_1.newLecture);
 // GET ROUTES
 exports.routes.get("/persons", personController_1.getPersons);
 exports.routes.get("/persons/:personalNumber", personController_1.getPerson);
+exports.routes.get("/persons/:personalNumber/lectures", personController_1.getPersonLectures);
 exports.routes.get("/classes", classController_1.getClasses);
 exports.routes.get("/classes/:slug", classController_1.getClass);
 exports.routes.get("/lectures", lectureController_1.getLectures);

@@ -1,9 +1,6 @@
 import { Request, Response } from "express";
 import prisma from "../utils/client";
 import { Class } from "../lib/types/class";
-import { Lecture } from "../lib/types/lecture";
-import { Person } from "../lib/types/person";
-import { z } from "zod";
 import { ClassSchema } from "../lib/schemas/class.schema";
 
 // POST NEW CLASS
@@ -31,15 +28,17 @@ export async function newClass(req: Request, res: Response) {
             }
         });
         await prisma.person.update({
-            where: { personalNumber: data.departmentHeadForClassId },
+            where: {personalNumber: data.departmentHeadForClassId},
             data: {
                 departmentHeadForClassId: data.departmentHeadForClassId
             }
         });
         res.status(201).json(class_);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Could not create new class' });
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error creating class",
+            error: err,
+        });
     }
 }
 
@@ -54,8 +53,8 @@ export async function getClasses(req: Request, res: Response) {
     });
     } catch (err) {
         return res.status(500).json({
-            message: "classes not fetched",
-            data: err,
+            message: "Error fetching classes",
+            error: err,
         });
     }
 }
@@ -74,14 +73,19 @@ export async function getClass(req: Request, res: Response) {
             }
         }
     });
-    res.status(200).json({
-        message: "class fetched",
-        data: class_,
-    });
+    if (class_ === null) {
+            return res.status(404).json({
+                message: "Class not found",
+            });
+    }
+        res.status(200).json({
+            message: "class fetched",
+            data: class_,
+        });
     } catch (err) {
         return res.status(500).json({
-            message: "class not fetched",
-            data: err,
+            message: "Error fetching class",
+            error: err,
         });
     }
 }
@@ -122,9 +126,11 @@ export async function updateClass(req: Request, res: Response) {
             message: "class updated",
             data: class_,
         });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Could not update class' });
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error updating class",
+            error: err,
+        });
     }
 }
 
@@ -157,10 +163,10 @@ export async function deleteClass(req: Request, res: Response) {
         res.status(200).json({
             message: "Class deleted",
         });
-    } catch (error) {
-        res.status(500).json({
-            message: "Failed to delete class",
-            error,
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error deleting class",
+            error: err,
         });
     }
 }

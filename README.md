@@ -11,8 +11,8 @@ This is an API for a school system that facilitates teachers and the administrat
 1. Clone the repository
 2. Run `npm install` to install all dependencies
 3. Create a `.env` file in the root directory and add the following environment variables:
-   DATABASE_URL=
-   PORT=
+   - DATABASE_URL=
+   - PORT=
 4. Run database migrations: `npx prisma migrate dev`
 5. Run `npm start` to start the server
 6. Use Postman to test the endpoints
@@ -21,30 +21,28 @@ This is an API for a school system that facilitates teachers and the administrat
 You can access the REST API of the server using the following endpoints:
 ### GET
 - /persons: Get all persons (teachers and students)
-- /persons/:id/: Get a person by their personal number
-- /persons/:id/lectures: Get all lectures of a person by their personal number
+- /persons/:personalNumber/: Get a person by their personal number
+- /persons/:personalNumber/lectures: Get all lectures of a person by their personal number
 - /classes: Get all classes
-- /classes/:id/: Get a class by its id
+- /classes/:slug/: Get a class by its slug
 - /lectures: Get all lectures
-- /lectures/:id/: Get a lecture by its id
+- /lectures/:slug/: Get a lecture by its slug
 
 ### POST
 - /persons: Create a new person (teacher or student)
 - /classes: Create a new class
 - /lectures: Create a new lecture
-- /persons/:id/lectures/:lectureId: Create a new lecture for a person by their personal number
 
 ### PATCH
-- /persons/:id/: Update a person by their personal number
+- /persons/:personalNumber/: Update a person by their personal number
 - /classes/:id/: Update a class by its id
-- /lectures/:id/: Update a lecture by its id
-- /persons/:id/lectures/:lectureId: Update a lecture for a person by their personal number
+- /lectures/:slug/: Update a lecture by its slug
+- /persons/:personalNumber/:lectureId: Update person's attendance in a lecture by their personal number
 
 ### DELETE
-- /persons/:id/: Delete a person by their personal number
+- /persons/:personalNumber/: Delete a person by their personal number
 - /classes/:id/: Delete a class by its id
 - /lectures/:id/: Delete a lecture by its id
-- /persons/:id/lectures/:lectureId: Delete a lecture for a person by their personal number
 
 ## Database Schema
 The database schema is as follows:

@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import prisma from "../utils/client";
 import {Person} from "../lib/types/person";
-import {PersonOnLecture} from "@prisma/client";
 import {LectureSchema} from "../lib/schemas/lecture.schema";
 
 // POST NEW LECTURE
@@ -30,16 +29,14 @@ export async function newLecture(req: Request, res: Response) {
                 teacherId: data.teacher,
             },
         });
-        console.log(data);
         return res.json({
             message: "lecture created",
             data: lecture,
         });
     } catch (err) {
-        console.log(err);
         return res.status(500).json({
-            message: "lecture not created",
-            data: err,
+            message: "Error creating lecture",
+            error: err,
         });
     }
 }
@@ -58,8 +55,8 @@ export async function getLectures(req: Request, res: Response) {
         });
     } catch (err) {
         return res.status(500).json({
-            message: "lectures not fetched",
-            data: err,
+            message: "Error fetching lectures",
+            error: err,
         });
     }
 }
@@ -74,14 +71,19 @@ export async function getLecture(req: Request, res: Response) {
                 students: true,
             },
         });
+        if (lecture === null) {
+            return res.status(404).json({
+                message: "Lecture not found",
+            });
+        }
         res.json({
             message: "lecture fetched",
             data: lecture,
         });
     } catch (err) {
         return res.status(500).json({
-            message: "lecture not fetched",
-            data: err,
+            message: "Error fetching lecture",
+            error: err,
         });
     }
 }
@@ -123,8 +125,8 @@ export async function updateLecture(req: Request, res: Response) {
         });
     } catch (err) {
         return res.status(500).json({
-            message: "lecture not updated",
-            data: err,
+            message: "Error updating lecture",
+            error: err,
         });
     }
 }
@@ -149,10 +151,9 @@ export async function deleteLecture(req: Request, res: Response) {
             message: "lecture deleted",
         });
     } catch (err) {
-        console.log(err);
         return res.status(500).json({
-            message: "lecture not deleted",
-            data: err,
+            message: "Error deleting lecture",
+            error: err,
         });
     }
 }
