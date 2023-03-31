@@ -4,7 +4,7 @@ import {routes} from "./src/routes";
 
 // SETUP
 dotenv.config();
-const app: Express = express();
+export const app: Express = express();
 const port = process.env.PORT;
 import cookieParser from 'cookie-parser';
 

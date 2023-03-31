@@ -1,7 +1,5 @@
 # School-System
 
-### IN PROGRESS 
-
 ## Purpose of Project
 
 This is an API for a school system that facilitates teachers and the administration at the school by allowing them to have a complete log of attendance in each lesson.
@@ -11,8 +9,8 @@ This is an API for a school system that facilitates teachers and the administrat
 1. Clone the repository
 2. Run `npm install` to install all dependencies
 3. Create a `.env` file in the root directory and add the following environment variables:
-   DATABASE_URL=
-   PORT=
+   - DATABASE_URL=
+   - PORT=
 4. Run database migrations: `npx prisma migrate dev`
 5. Run `npm start` to start the server
 6. Use Postman to test the endpoints
@@ -27,12 +25,17 @@ You can access the REST API of the server using the following endpoints:
 - /classes/:id/: Get a class by its id
 - /lectures: Get all lectures
 - /lectures/:id/: Get a lecture by its id
+- /persons/:personalNumber/: Get a person by their personal number
+- /persons/:personalNumber/lectures: Get all lectures of a person by their personal number
+- /classes: Get all classes
+- /classes/:slug/: Get a class by its slug
+- /lectures: Get all lectures
+- /lectures/:slug/: Get a lecture by its slug
 
 ### POST
 - /persons: Create a new person (teacher or student)
 - /classes: Create a new class
 - /lectures: Create a new lecture
-- /persons/:id/lectures/:lectureId: Create a new lecture for a person by their personal number
 
 ### PATCH
 - /persons/:id/: Update a person by their personal number
@@ -45,6 +48,15 @@ You can access the REST API of the server using the following endpoints:
 - /classes/:id/: Delete a class by its id
 - /lectures/:id/: Delete a lecture by its id
 - /persons/:id/lectures/:lectureId: Delete a lecture for a person by their personal number
+- /persons/:personalNumber/: Update a person by their personal number
+- /classes/:id/: Update a class by its id
+- /lectures/:slug/: Update a lecture by its slug
+- /persons/:personalNumber/:lectureId: Update person's attendance in a lecture by their personal number
+
+### DELETE
+- /persons/:personalNumber/: Delete a person by their personal number
+- /classes/:id/: Delete a class by its id
+- /lectures/:id/: Delete a lecture by its id
 
 ## Database Schema
 The database schema is as follows:
