@@ -12,8 +12,9 @@ This is an API for a school system that facilitates teachers and the administrat
    - DATABASE_URL=
    - PORT=
 4. Run database migrations: `npx prisma migrate dev`
-5. Run `npm start` to start the server
-6. Use Postman to test the endpoints
+5. Seed the database with fake data: `npx prisma db seed`
+6. Run `npm start` to start the server
+7. Use Postman to test the endpoints
 
 ## Endpoints
 You can access the REST API of the server using the following endpoints:
