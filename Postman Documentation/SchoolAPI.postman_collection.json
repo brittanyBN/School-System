@@ -1,0 +1,2473 @@
+{
+	"info": {
+		"_postman_id": "2c3cfb27-ca3c-461d-a14c-389500aa778c",
+		"name": "SchoolAPI",
+		"description": "This is an API for a school system that helps students and teachers keep track of their lectures and classes. The API contains passwords that are protected by a password hashing algorithm, bcrypt. The API is built using TypeScript and Express.js, and it uses a schema to validate input data.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24332961"
+	},
+	"item": [
+		{
+			"name": "Classes",
+			"item": [
+				{
+					"name": "Class",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"123456789\",\n    \"slug\": \"CS\",\n    \"name\": \"Computer Science I\",\n    \"departmentHeadForClassId\": \"1245678177\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_path}}/classes",
+							"host": [
+								"{{base_path}}"
+							],
+							"path": [
+								"classes"
+							]
+						},
+						"description": "- Description: Creates a new class with the provided data.\n- Body parameters:\n    - `slug` (string, required): The slug of the class.\n    - `name` (string, required): The name of the class.\n    - `departmentHeadForClassId` (string, required): The personal number of the department head for the class, or null.\n- Response: The created class object with its students and department head information."
+					},
+					"response": [
+						{
+							"name": "Class",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"123456789\",\n    \"slug\": \"CS\",\n    \"name\": \"Computer Science I\",\n    \"departmentHeadForClassId\": \"1245678177\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/classes",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"classes"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "161"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a1-9i5kDTPMR2yD4QxUHsQYFOYOD6I\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:29:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"clfv5kj5100034go2asev4na8\",\n    \"slug\": \"CS\",\n    \"name\": \"Computer Science I\",\n    \"departmentHeadForClassId\": \"1245678177\",\n    \"students\": [],\n    \"departmentHead\": {\n        \"name\": \"Lela\"\n    }\n}"
+						},
+						{
+							"name": "Class negative",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"123456789\",\n    \"slug\": \"CS\",\n    \"name\": \"Computer Science I\",\n    \"departmentHeadForClassId\": 1245678177\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/classes",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"classes"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "218"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"da-rZOXqsG9WYNToFxBu4oBF68FXsM\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:30:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Error creating class\",\n    \"error\": {\n        \"issues\": [\n            {\n                \"code\": \"invalid_type\",\n                \"expected\": \"string\",\n                \"received\": \"number\",\n                \"path\": [\n                    \"departmentHeadForClassId\"\n                ],\n                \"message\": \"Expected string, received number\"\n            }\n        ],\n        \"name\": \"ZodError\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Classes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_path}}/classes",
+							"host": [
+								"{{base_path}}"
+							],
+							"path": [
+								"classes"
+							]
+						},
+						"description": "- Description: Retrieves all classes from the database.\n- Response: A message saying \"classes fetched\" and an array of class objects, or an error message if unsuccesfful."
+					},
+					"response": [
+						{
+							"name": "Classes",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/classes",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"classes"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "695"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2b7-oQDnqp3FLZ6QAS8Ww81iGLluOZA\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:30:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"classes fetched\",\n    \"data\": [\n        {\n            \"id\": \"clfv5ddl900034g55h57z61t1\",\n            \"slug\": \"CSI\",\n            \"name\": \"Computer Science I\",\n            \"departmentHeadForClassId\": null\n        },\n        {\n            \"id\": \"5991085551\",\n            \"slug\": \"aspernatur\",\n            \"name\": \"Kids\",\n            \"departmentHeadForClassId\": null\n        },\n        {\n            \"id\": \"1148086453\",\n            \"slug\": \"accusamus\",\n            \"name\": \"Kids\",\n            \"departmentHeadForClassId\": null\n        },\n        {\n            \"id\": \"8602467289\",\n            \"slug\": \"rerum\",\n            \"name\": \"Electronics\",\n            \"departmentHeadForClassId\": null\n        },\n        {\n            \"id\": \"3475753650\",\n            \"slug\": \"cupiditate\",\n            \"name\": \"Movies\",\n            \"departmentHeadForClassId\": null\n        },\n        {\n            \"id\": \"2086710321\",\n            \"slug\": \"laboriosam\",\n            \"name\": \"Books\",\n            \"departmentHeadForClassId\": null\n        },\n        {\n            \"id\": \"clfv5kj5100034go2asev4na8\",\n            \"slug\": \"CS\",\n            \"name\": \"Computer Science I\",\n            \"departmentHeadForClassId\": \"1245678177\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Class",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_path}}/classes/CS",
+							"host": [
+								"{{base_path}}"
+							],
+							"path": [
+								"classes",
+								"CS"
+							]
+						},
+						"description": "- Description: Retrieves a specific class by its slug.\n- Path parameter:\n    - `slug` (string, required): The slug of the class to retrieve.\n- Response: A message saying \"class fetched\" and the class object with its students information, or an error message if unsuccessful."
+					},
+					"response": [
+						{
+							"name": "Class negative",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/classes/clfv5kj5100034go2asev4na8",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"classes",
+										"clfv5kj5100034go2asev4na8"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "29"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1d-sa4Va875ZzrKExZBavJXJ1/VvT4\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:31:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Class not found\"\n}"
+						},
+						{
+							"name": "Class",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/classes/CS",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"classes",
+										"CS"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "163"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a3-b59wx/d7H6Ty46gQT3QEKgW7ZQ0\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:31:31 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"class fetched\",\n    \"data\": {\n        \"id\": \"clfv5kj5100034go2asev4na8\",\n        \"slug\": \"CS\",\n        \"name\": \"Computer Science I\",\n        \"departmentHeadForClassId\": \"1245678177\",\n        \"students\": []\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Class",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"clfv5kj5100034go2asev4na8\",\n    \"slug\": \"CSS\",\n    \"name\": \"Computer Science\",\n    \"departmentHeadForClassId\": \"1245678177\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_path}}/classes/clfv5kj5100034go2asev4na8",
+							"host": [
+								"{{base_path}}"
+							],
+							"path": [
+								"classes",
+								"clfv5kj5100034go2asev4na8"
+							]
+						},
+						"description": "- Description: Updates a specific class with the provided data.\n- Path parameter:\n    - `id` (string, required): The ID of the class to update.\n- Body parameters:\n    - `slug` (string, required): The new slug of the class.\n    - `name` (string, required): The new name of the class.\n    - `departmentHeadForClassId` (string, required): The new personal number of the department head for the class, or null.\n- Response: A message saying \"class updated\" and the updated class object with its students and department head information, or an error message if unsuccessful."
+					},
+					"response": [
+						{
+							"name": "Class",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"clfv5kj5100034go2asev4na8\",\n    \"slug\": \"CSS\",\n    \"name\": \"Computer Science\",\n    \"departmentHeadForClassId\": \"1245678177\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/classes/clfv5kj5100034go2asev4na8",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"classes",
+										"clfv5kj5100034go2asev4na8"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "195"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"c3-74eELkmf81hhxGtGasJkHOly/P8\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:33:07 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"class updated\",\n    \"data\": {\n        \"id\": \"clfv5kj5100034go2asev4na8\",\n        \"slug\": \"CSS\",\n        \"name\": \"Computer Science\",\n        \"departmentHeadForClassId\": \"1245678177\",\n        \"students\": [],\n        \"departmentHead\": {\n            \"name\": \"Lela\"\n        }\n    }\n}"
+						},
+						{
+							"name": "Class",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"clfv5kj5100034go2asev4na8\",\n    \"slug\": \"CSS\",\n    \"name\": \"Computer Science\",\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/classes/clfv5kj5100034go2asev4na8",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"classes",
+										"clfv5kj5100034go2asev4na8"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'none'"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1299"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:33:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <title>Error</title>\n    </head>\n    <body>\n        <pre>SyntaxError: Expected double-quoted property name in JSON at position 92\n            <br> &nbsp; &nbsp;at JSON.parse (&lt;anonymous&gt;)\n            <br> &nbsp; &nbsp;at parse (/Users/brittanybolling/Dropbox/My Mac (brittanys-mbp)/Desktop/revisedSchool/node_modules/body-parser/lib/types/json.js:89:19)\n            <br> &nbsp; &nbsp;at /Users/brittanybolling/Dropbox/My Mac (brittanys-mbp)/Desktop/revisedSchool/node_modules/body-parser/lib/read.js:128:18\n            <br> &nbsp; &nbsp;at AsyncResource.runInAsyncScope (node:async_hooks:203:9)\n            <br> &nbsp; &nbsp;at invokeCallback (/Users/brittanybolling/Dropbox/My Mac (brittanys-mbp)/Desktop/revisedSchool/node_modules/raw-body/index.js:231:16)\n            <br> &nbsp; &nbsp;at done (/Users/brittanybolling/Dropbox/My Mac (brittanys-mbp)/Desktop/revisedSchool/node_modules/raw-body/index.js:220:7)\n            <br> &nbsp; &nbsp;at IncomingMessage.onEnd (/Users/brittanybolling/Dropbox/My Mac (brittanys-mbp)/Desktop/revisedSchool/node_modules/raw-body/index.js:280:7)\n            <br> &nbsp; &nbsp;at IncomingMessage.emit (node:events:512:28)\n            <br> &nbsp; &nbsp;at endReadableNT (node:internal/streams/readable:1359:12)\n            <br> &nbsp; &nbsp;at process.processTicksAndRejections (node:internal/process/task_queues:82:21)\n        </pre>\n    </body>\n</html>"
+						},
+						{
+							"name": "Class negative",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"clfv5kj5100034go2asev4na8\",\n    \"slug\": \"CSS\",\n    \"name\": \"Computer Science\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/classes/clfv5kj5100034go2asev4na8",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"classes",
+										"clfv5kj5100034go2asev4na8"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "69"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"45-WloTYhVjYWrGbSoQHBrYuuN2uUE\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:33:50 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Error updating class\",\n    \"error\": {\n        \"clientVersion\": \"4.11.0\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Class",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_path}}/classes/clfv5kj5100034go2asev4na8",
+							"host": [
+								"{{base_path}}"
+							],
+							"path": [
+								"classes",
+								"clfv5kj5100034go2asev4na8"
+							]
+						},
+						"description": "- Description: Deletes a specific class and its related information.\n- Path parameter:\n    - `id` (string, required): The ID of the class to delete.\n- Response: A message confirming that the class was deleted, or an error message if unsuccessful."
+					},
+					"response": [
+						{
+							"name": "Class",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_path}}/classes/clfv5kj5100034go2asev4na8",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"classes",
+										"clfv5kj5100034go2asev4na8"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "27"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1b-1xQlGU8v8GwSRn6EZ5lJON1SGOE\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:34:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Class deleted\"\n}"
+						},
+						{
+							"name": "Class negative",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_path}}/classes/CSS",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"classes",
+										"CSS"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "136"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"88-61rZKOqZbuETkRDQdFkrmzlJ2XE\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:34:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Error deleting class\",\n    \"error\": {\n        \"code\": \"P2025\",\n        \"clientVersion\": \"4.11.0\",\n        \"meta\": {\n            \"cause\": \"Record to delete does not exist.\"\n        }\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "This endpoint provides access to all classes in the system, which are made up of students and a department head. Each class has a unique identifier(slug), name, and a department head assigned to it. This endpoint allows you to create new classes, retrieve information about existing classes, update class details, and delete classes as needed. The response data for this endpoint includes the class's slug, name, and information about the department head assigned to the class. Additionally, you can retrieve information about the students enrolled in the class and the lectures associated with the class, such as the lecture name and if a student attended."
+		},
+		{
+			"name": "Persons",
+			"item": [
+				{
+					"name": "Persons",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"personalNumber\": \"5323919500\",\n        \"name\": \"Jordan\",\n        \"email\": \"Lester_Franecki@gmail.com\",\n        \"password\": \"$2a$10$GrNRrye38caMSxRZiCEOx.NUd.ihE55bwBF49A2itB68W41CYHtUO\",\n        \"role\": \"STUDENT\",\n        \"createdAt\": \"2023-03-24T14:49:53.330Z\",\n        \"classId\": \"clfv5ddl900034g55h57z61t1\",\n        \"departmentHeadForClassId\": null\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_path}}/persons",
+							"host": [
+								"{{base_path}}"
+							],
+							"path": [
+								"persons"
+							]
+						},
+						"description": "- Description: Creates a new person in the database with the provided details.\n- Body parameters:\n    - `personalNumber`(string, required): The personal number of the new person\n    - `name`(string, required): The person's name\n    - `email`(string, required): The person's email\n    - `password`(string, required): The person's password\n    - `role`(enum, required): The person's role (TEACHER or STUDENT)\n    - `classId`(string, optional): The subject they study or teacher\n    - `departmentHeadForClassId`(string, optional): The department they lead (TEACHER only)\n- Response: Returns a JSON object with the newly created person, including the current time, and a success message if the operation was successful, or an error message if it failed."
+					},
+					"response": [
+						{
+							"name": "Persons negative",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"personalNumber\": \"5323919500\",\n        \"name\": \"Jordan\",\n        \"email\": \"Lester_Franecki@gmail.com\",\n        \"password\": \"$2a$10$GrNRrye38caMSxRZiCEOx.NUd.ihE55bwBF49A2itB68W41CYHtUO\",\n        \"role\": \"STUDENT\",\n        \"createdAt\": \"2023-03-24T14:49:53.330Z\",\n        \"classId\": \"9889733302\",\n        \"departmentHeadForClassId\": null\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/persons",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"persons"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "137"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"89-eXcnR1+LsCGsfZSTaf0vAAzT7x4\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:34:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Error creating person\",\n    \"error\": {\n        \"code\": \"P2003\",\n        \"clientVersion\": \"4.11.0\",\n        \"meta\": {\n            \"field_name\": \"Person_classId_fkey (index)\"\n        }\n    }\n}"
+						},
+						{
+							"name": "Persons",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"personalNumber\": \"5323919500\",\n        \"name\": \"Jordan\",\n        \"email\": \"Lester_Franecki@gmail.com\",\n        \"password\": \"$2a$10$GrNRrye38caMSxRZiCEOx.NUd.ihE55bwBF49A2itB68W41CYHtUO\",\n        \"role\": \"STUDENT\",\n        \"createdAt\": \"2023-03-24T14:49:53.330Z\",\n        \"classId\": \"clfv5ddl900034g55h57z61t1\",\n        \"departmentHeadForClassId\": null\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/persons",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"persons"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "449"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1c1-379VltSgx86rE5ojNa8WtldTFFE\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:35:36 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"person created\",\n    \"data\": {\n        \"personalNumber\": \"5323919500\",\n        \"name\": \"Jordan\",\n        \"email\": \"Lester_Franecki@gmail.com\",\n        \"password\": \"$2a$10$fzMdCaRbMWwB2G8ZMSB0QOiOASFOOw/kR.3lu0mjsecrV05Hr0roG\",\n        \"role\": \"STUDENT\",\n        \"createdAt\": \"2023-03-30T13:35:36.093Z\",\n        \"classId\": \"clfv5ddl900034g55h57z61t1\",\n        \"departmentHeadForClassId\": null,\n        \"lectures\": [],\n        \"class\": {\n            \"id\": \"clfv5ddl900034g55h57z61t1\",\n            \"slug\": \"CSI\",\n            \"name\": \"Computer Science I\",\n            \"departmentHeadForClassId\": null\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Persons",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_path}}/persons",
+							"host": [
+								"{{base_path}}"
+							],
+							"path": [
+								"persons"
+							]
+						},
+						"description": "- Description: Retrieves all persons from the database.\n- Response: A message saying \"persons fetched\" and an array of person objects, or an error message if unsuccesfful."
+					},
+					"response": [
+						{
+							"name": "Persons",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/persons",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"persons"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1676"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"68c-y2F7dlFhm3mQNGCyP/0FoqjQ+lQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:35:55 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"persons fetched\",\n    \"data\": [\n        {\n            \"personalNumber\": \"7047024033\",\n            \"name\": \"Karine\",\n            \"email\": \"Alexys_Schiller20@hotmail.com\",\n            \"password\": \"$2a$10$KACiFOZGGAL3DDcLnaodUO7glHZTSCM1TTfFLsCFrncCSIM6EgxeK\",\n            \"role\": \"TEACHER\",\n            \"createdAt\": \"2023-03-29T21:11:20.451Z\",\n            \"classId\": \"2086710321\",\n            \"departmentHeadForClassId\": null\n        },\n        {\n            \"personalNumber\": \"1724618208\",\n            \"name\": \"Filomena\",\n            \"email\": \"Orrin_Wunsch71@yahoo.com\",\n            \"password\": \"$2a$10$XiwP3Ye6IMA/xX13Gqkz9.qsMNReMejH2ZP0Ao/yyJJ9LX6rmMAca\",\n            \"role\": \"TEACHER\",\n            \"createdAt\": \"2023-03-30T05:16:23.999Z\",\n            \"classId\": \"3475753650\",\n            \"departmentHeadForClassId\": null\n        },\n        {\n            \"personalNumber\": \"4317383689\",\n            \"name\": \"Maynard\",\n            \"email\": \"Tabitha_Graham42@hotmail.com\",\n            \"password\": \"$2a$10$L6IeZcEmyW4f/cM5tz7VVOtGaU/BtYQU7C/sLi0BWJZDpKmXb5f/y\",\n            \"role\": \"STUDENT\",\n            \"createdAt\": \"2023-03-30T01:30:37.687Z\",\n            \"classId\": \"1148086453\",\n            \"departmentHeadForClassId\": null\n        },\n        {\n            \"personalNumber\": \"6235306604\",\n            \"name\": \"Francisco\",\n            \"email\": \"Gust.Hartmann9@gmail.com\",\n            \"password\": \"$2a$10$WAdKkllFSHkialg54uWmeujAR5SQOzlZ0FwdOzV5zMAgljOkZvaF2\",\n            \"role\": \"TEACHER\",\n            \"createdAt\": \"2023-03-30T04:18:37.598Z\",\n            \"classId\": \"8602467289\",\n            \"departmentHeadForClassId\": null\n        },\n        {\n            \"personalNumber\": \"1245678177\",\n            \"name\": \"Lela\",\n            \"email\": \"Maryse2@yahoo.com\",\n            \"password\": \"$2a$10$A6NTFAo7TH.rpUYfMV2jI.6u6qCSYm4HHIw76L9Sy9LVSLd1wG47a\",\n            \"role\": \"TEACHER\",\n            \"createdAt\": \"2023-03-30T04:38:45.668Z\",\n            \"classId\": \"2086710321\",\n            \"departmentHeadForClassId\": \"1245678177\"\n        },\n        {\n            \"personalNumber\": \"5323919500\",\n            \"name\": \"Jordan\",\n            \"email\": \"Lester_Franecki@gmail.com\",\n            \"password\": \"$2a$10$fzMdCaRbMWwB2G8ZMSB0QOiOASFOOw/kR.3lu0mjsecrV05Hr0roG\",\n            \"role\": \"STUDENT\",\n            \"createdAt\": \"2023-03-30T13:35:36.093Z\",\n            \"classId\": \"clfv5ddl900034g55h57z61t1\",\n            \"departmentHeadForClassId\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Person",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_path}}/persons/5323919500",
+							"host": [
+								"{{base_path}}"
+							],
+							"path": [
+								"persons",
+								"5323919500"
+							]
+						},
+						"description": "- Description: Retrieves a specific person by their personal number.\n- Path parameter:\n    - `personalNumber` (string, required): The personal number of the person to retrieve.\n- Response: A message saying \"person fetched\" and the person object, or an error message if unsuccessful."
+					},
+					"response": [
+						{
+							"name": "Person",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/persons/5323919500",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"persons",
+										"5323919500"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "319"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"13f-wlekvatGF1K29YBKnuSUYgYxC6c\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:36:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"person fetched\",\n    \"data\": {\n        \"personalNumber\": \"5323919500\",\n        \"name\": \"Jordan\",\n        \"email\": \"Lester_Franecki@gmail.com\",\n        \"password\": \"$2a$10$fzMdCaRbMWwB2G8ZMSB0QOiOASFOOw/kR.3lu0mjsecrV05Hr0roG\",\n        \"role\": \"STUDENT\",\n        \"createdAt\": \"2023-03-30T13:35:36.093Z\",\n        \"classId\": \"clfv5ddl900034g55h57z61t1\",\n        \"departmentHeadForClassId\": null\n    }\n}"
+						},
+						{
+							"name": "Person negative",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/persons/Jordan",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"persons",
+										"Jordan"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "30"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1e-TScV2H5Zlpd+cOWl4MUEFzJPG/g\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:36:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"person not found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Person",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"personalNumber\": \"5323919500\",\n        \"name\": \"Jordan\",\n        \"email\": \"Lester_Franecki@gmail.com\",\n        \"password\": \"$2a$10$GrNRrye38caMSxRZiCEOx.NUd.ihE55bwBF49A2itB68W41CYHtUO\",\n        \"role\": \"TEACHER\",\n        \"createdAt\": \"2023-03-24T14:49:53.330Z\",\n        \"classId\": \"clfv5ddl900034g55h57z61t1\",\n        \"departmentHeadForClassId\": null\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_path}}/persons/5323919500",
+							"host": [
+								"{{base_path}}"
+							],
+							"path": [
+								"persons",
+								"5323919500"
+							]
+						},
+						"description": "- Description: Updates a specific person with the provided data.\n- Path parameter:\n    - `personalNumber` (string, required): The personal number of the person to update.\n- Body parameters:\n    - `personalNumber` (string, required): The person's personal number.\n    - `name` (string, required): The new name of the person.\n    - `email`: The person's new email.\n    - `password`: The person's new password.\n    - `role`: The person's new role (TEACHER OR STUDENT).\n    - `createdAt`: The time the person was created or updated.\n    - `classId`: The id of the subject the person studies, or null.\n    - `departmentHeadForClassId` (string, required): The new personal number of the department head for the class, or null.\n- Response: A message saying \"person updated\" and the updated person object, or an error message if unsuccessful."
+					},
+					"response": [
+						{
+							"name": "Person",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"personalNumber\": \"5323919500\",\n        \"name\": \"Jordan\",\n        \"email\": \"Lester_Franecki@gmail.com\",\n        \"password\": \"$2a$10$GrNRrye38caMSxRZiCEOx.NUd.ihE55bwBF49A2itB68W41CYHtUO\",\n        \"role\": \"TEACHER\",\n        \"createdAt\": \"2023-03-24T14:49:53.330Z\",\n        \"classId\": \"clfv5ddl900034g55h57z61t1\",\n        \"departmentHeadForClassId\": null\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/persons/5323919500",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"persons",
+										"5323919500"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "319"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"13f-Rnk4n9qWHotOjzUy6kMKPRtA+Zo\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:37:24 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"person updated\",\n    \"data\": {\n        \"personalNumber\": \"5323919500\",\n        \"name\": \"Jordan\",\n        \"email\": \"Lester_Franecki@gmail.com\",\n        \"password\": \"$2a$10$GrNRrye38caMSxRZiCEOx.NUd.ihE55bwBF49A2itB68W41CYHtUO\",\n        \"role\": \"TEACHER\",\n        \"createdAt\": \"2023-03-30T13:35:36.093Z\",\n        \"classId\": \"clfv5ddl900034g55h57z61t1\",\n        \"departmentHeadForClassId\": null\n    }\n}"
+						},
+						{
+							"name": "Person negative",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "    {\n        \"role\": \"TEACHER\"\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/persons/5323919500",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"persons",
+										"5323919500"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "575"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"23f-uICknefO1sWnI/8F0WiRladn0bU\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:37:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Error updating person\",\n    \"error\": {\n        \"issues\": [\n            {\n                \"code\": \"invalid_type\",\n                \"expected\": \"string\",\n                \"received\": \"undefined\",\n                \"path\": [\n                    \"personalNumber\"\n                ],\n                \"message\": \"Required\"\n            },\n            {\n                \"code\": \"invalid_type\",\n                \"expected\": \"string\",\n                \"received\": \"undefined\",\n                \"path\": [\n                    \"name\"\n                ],\n                \"message\": \"Required\"\n            },\n            {\n                \"code\": \"invalid_type\",\n                \"expected\": \"string\",\n                \"received\": \"undefined\",\n                \"path\": [\n                    \"email\"\n                ],\n                \"message\": \"Required\"\n            },\n            {\n                \"code\": \"invalid_type\",\n                \"expected\": \"string\",\n                \"received\": \"undefined\",\n                \"path\": [\n                    \"password\"\n                ],\n                \"message\": \"Required\"\n            },\n            {\n                \"code\": \"invalid_date\",\n                \"path\": [\n                    \"createdAt\"\n                ],\n                \"message\": \"Invalid date\"\n            }\n        ],\n        \"name\": \"ZodError\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Person",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_path}}/persons/5323919500",
+							"host": [
+								"{{base_path}}"
+							],
+							"path": [
+								"persons",
+								"5323919500"
+							]
+						},
+						"description": "- Description: Deletes a specific person and its related information.\n- Path parameter:\n    - `personalNumber` (string, required): The personal number of the person to delete.\n- Response: A message confirming that the person was deleted, or an error message if unsuccessful."
+					},
+					"response": [
+						{
+							"name": "Person negative",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/persons/Jordan",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"persons",
+										"Jordan"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "137"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"89-Vgm7vU0s/f3v0nEG3Zreq2md5xE\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:38:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Error deleting person\",\n    \"error\": {\n        \"code\": \"P2025\",\n        \"clientVersion\": \"4.11.0\",\n        \"meta\": {\n            \"cause\": \"Record to delete does not exist.\"\n        }\n    }\n}"
+						},
+						{
+							"name": "Person",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/persons/5323919500",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"persons",
+										"5323919500"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "28"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1c-W+uIYkJfVXPd7DrAF+FHPTVohCg\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:38:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Person deleted\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Person/lecture",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"attended\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_path}}/persons/7047024033/1677060638",
+							"host": [
+								"{{base_path}}"
+							],
+							"path": [
+								"persons",
+								"7047024033",
+								"1677060638"
+							]
+						},
+						"description": "- Description: Update the attendance of a specific person in a specific lecture\n- Path parameter:\n    - `personalNumber`(string, required): The personal number of the person to update.\n    - `id`(string, required): The id of the lecture to update.\n- Response: A message confirming that the person's attendance was updated and the lecture id, personal number, and attendace status of that person. If the update was unsuccessful an error message will be provided."
+					},
+					"response": [
+						{
+							"name": "Person/lecture",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"attended\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/persons/7047024033/1677060638",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"persons",
+										"7047024033",
+										"1677060638"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "114"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"72-Zkb2dMNu0BkmtxmfmYzr7zJ3OYw\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:39:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"person attendance updated\",\n    \"data\": {\n        \"personId\": \"7047024033\",\n        \"lectureId\": \"1677060638\",\n        \"attended\": false\n    }\n}"
+						},
+						{
+							"name": "Person/lecture negative",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"attended\": \"false\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/persons/7047024033/1677060638",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"persons",
+										"7047024033",
+										"1677060638"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "81"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"51-uWM0c0FYiAMtasUeomI9Y1O4Xhg\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:40:04 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Error updating person attendance\",\n    \"error\": {\n        \"clientVersion\": \"4.11.0\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Person's lectures",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_path}}/persons/4317383689/lectures",
+							"host": [
+								"{{base_path}}"
+							],
+							"path": [
+								"persons",
+								"4317383689",
+								"lectures"
+							]
+						},
+						"description": "- Description: Retrieves all lectures of a specific person.\n- Path parameter:\n    - `personalNumber` (string, required): The personal number of the person to retrieve.\n- Response: A \"person lectures fetched\" message and an array of objects containing information about each lecture the person is in, or an error message if unsuccessful."
+					},
+					"response": [
+						{
+							"name": "Person's lectures",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/persons/4317383689/lectures",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"persons",
+										"4317383689",
+										"lectures"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "373"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"175-G3A8tzd6J80nsmzGxplrXuv2E/o\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:40:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"person lectures fetched\",\n    \"data\": [\n        {\n            \"lecture\": {\n                \"id\": \"7003932604\",\n                \"slug\": \"recusandae\",\n                \"className\": \"Automotive\",\n                \"time\": \"2007-03-03T04:13:51.688Z\",\n                \"description\": \"The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality\",\n                \"classId\": \"clfv5ddl900034g55h57z61t1\",\n                \"teacherId\": \"7047024033\"\n            }\n        }\n    ]\n}"
+						}
+					]
+				}
+			],
+			"description": "This endpoint provides access to all persons in the system, including students and teachers. Each person has a unique identifier(personal number), name, email address, and role in the system. This endpoint allows you to create new persons, retrieve information about existing persons, update person details, and delete persons as needed. The response data for this endpoint includes the person's identifier, name, email address, and role in the system. Additionally, you can retrieve information about a person's associated lectures, such as the lecture name and if they attended."
+		},
+		{
+			"name": "Lectures",
+			"item": [
+				{
+					"name": "Lecture",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"slug\": \"CSI\",\n    \"className\": \"Computer Science I\",\n    \"time\": \"2082-05-17 23:45:35.442\",\n    \"description\": \"Computer science one\",\n    \"students\": [\n            \"5323919500\", \"4317383689\"\n    ],\n    \"class\": \"clfv5ddl900034g55h57z61t1\",\n    \"teacher\": \"7047024033\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_path}}/lectures",
+							"host": [
+								"{{base_path}}"
+							],
+							"path": [
+								"lectures"
+							]
+						},
+						"description": "- Description: Creates a new lecture with the provided data.\n- Body parameters:\n    - `slug` (string, required): The slug of the lecture.\n    - `className` (string, required): The name of the class the lecture is associated with.\n    - `description` (string, required): A description of the lecture.\n    - `time` (date, required): The date and time of the lecture.\n    - `students` (array, optional): An array of objects with the personalNumber property, representing the students attending the lecture.\n    - `classId` (string, required): The id of the class associated with the lecture, or null.\n    - `teacherId` (string, required): The personal number of the teacher associated with the lecture, or null.\n- Response: The created class object with its students and department head information."
+					},
+					"response": [
+						{
+							"name": "Lecture",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"slug\": \"CSI\",\n    \"className\": \"Computer Science I\",\n    \"time\": \"2082-05-17 23:45:35.442\",\n    \"description\": \"Computer science one\",\n    \"students\": [\n            \"5323919500\", \"4317383689\"\n    ],\n    \"class\": \"clfv5ddl900034g55h57z61t1\",\n    \"teacher\": \"7047024033\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/lectures",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"lectures"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "251"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"fb-FLqyAU9xt2gDtz25e7Pi1cJahgM\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:42:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"lecture created\",\n    \"data\": {\n        \"id\": \"clfv60rvz00094go2xtkw5g8h\",\n        \"slug\": \"CSI\",\n        \"className\": \"Computer Science I\",\n        \"time\": \"2082-05-17T21:45:35.442Z\",\n        \"description\": \"Computer science one\",\n        \"classId\": \"clfv5ddl900034g55h57z61t1\",\n        \"teacherId\": \"7047024033\"\n    }\n}"
+						},
+						{
+							"name": "Lecture negative",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"slug\": \"CSI\",\n    \"className\": \"Computer Science I\",\n    \"time\": \"2082-05-17 23:45:35.442\",\n    \"description\": \"Computer science one\",\n    \"students\": [\n            \"5323919500\", \"4317383689\"\n    ],\n    \"class\": \"clfv5ddl900034g55h57z61t1\",\n    \"teacher\": \"7047024033\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/lectures",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"lectures"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "113"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"71-gIsqlUDNvtqwD4F+E3Ct0timgEU\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:43:33 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Error creating lecture\",\n    \"error\": {\n        \"code\": \"P2002\",\n        \"clientVersion\": \"4.11.0\",\n        \"meta\": {\n            \"target\": [\n                \"slug\"\n            ]\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Lectures",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_path}}/lectures",
+							"host": [
+								"{{base_path}}"
+							],
+							"path": [
+								"lectures"
+							]
+						},
+						"description": "- Description: Retrieves all lectuers from the database.\n- Response: A message saying \"lectures fetched\" and an array of lecture objects, or an error message if unsuccesfful."
+					},
+					"response": [
+						{
+							"name": "Lectures",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/lectures",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"lectures"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2244"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8c4-q6NwGv3sAVXKc3ernrnsu2hf8+4\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:43:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"lectures fetched\",\n    \"data\": [\n        {\n            \"id\": \"1677060638\",\n            \"slug\": \"dicta\",\n            \"className\": \"Industrial\",\n            \"time\": \"2087-01-22T22:33:46.956Z\",\n            \"description\": \"New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart\",\n            \"classId\": \"5991085551\",\n            \"teacherId\": \"1245678177\",\n            \"students\": [\n                {\n                    \"personId\": \"7047024033\",\n                    \"lectureId\": \"1677060638\",\n                    \"attended\": false\n                }\n            ]\n        },\n        {\n            \"id\": \"7003932604\",\n            \"slug\": \"recusandae\",\n            \"className\": \"Automotive\",\n            \"time\": \"2007-03-03T04:13:51.688Z\",\n            \"description\": \"The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality\",\n            \"classId\": \"clfv5ddl900034g55h57z61t1\",\n            \"teacherId\": \"7047024033\",\n            \"students\": [\n                {\n                    \"personId\": \"4317383689\",\n                    \"lectureId\": \"7003932604\",\n                    \"attended\": true\n                }\n            ]\n        },\n        {\n            \"id\": \"9870911636\",\n            \"slug\": \"eligendi\",\n            \"className\": \"Baby\",\n            \"time\": \"2010-02-05T00:08:59.826Z\",\n            \"description\": \"Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals\",\n            \"classId\": \"5991085551\",\n            \"teacherId\": \"6235306604\",\n            \"students\": [\n                {\n                    \"personId\": \"6235306604\",\n                    \"lectureId\": \"9870911636\",\n                    \"attended\": true\n                },\n                {\n                    \"personId\": \"7047024033\",\n                    \"lectureId\": \"9870911636\",\n                    \"attended\": true\n                }\n            ]\n        },\n        {\n            \"id\": \"6259146381\",\n            \"slug\": \"modi\",\n            \"className\": \"Home\",\n            \"time\": \"2017-09-21T20:40:58.831Z\",\n            \"description\": \"The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design\",\n            \"classId\": \"3475753650\",\n            \"teacherId\": \"6235306604\",\n            \"students\": [\n                {\n                    \"personId\": \"7047024033\",\n                    \"lectureId\": \"6259146381\",\n                    \"attended\": true\n                }\n            ]\n        },\n        {\n            \"id\": \"3611121531\",\n            \"slug\": \"at\",\n            \"className\": \"Garden\",\n            \"time\": \"2036-10-06T04:34:56.027Z\",\n            \"description\": \"New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart\",\n            \"classId\": \"clfv5ddl900034g55h57z61t1\",\n            \"teacherId\": \"1724618208\",\n            \"students\": []\n        },\n        {\n            \"id\": \"clfv60rvz00094go2xtkw5g8h\",\n            \"slug\": \"CSI\",\n            \"className\": \"Computer Science I\",\n            \"time\": \"2082-05-17T21:45:35.442Z\",\n            \"description\": \"Computer science one\",\n            \"classId\": \"clfv5ddl900034g55h57z61t1\",\n            \"teacherId\": \"7047024033\",\n            \"students\": [\n                {\n                    \"personId\": \"4317383689\",\n                    \"lectureId\": \"clfv60rvz00094go2xtkw5g8h\",\n                    \"attended\": false\n                },\n                {\n                    \"personId\": \"5323919500\",\n                    \"lectureId\": \"clfv60rvz00094go2xtkw5g8h\",\n                    \"attended\": false\n                }\n            ]\n        }\n    ]\n}"
+						},
+						{
+							"name": "Lectures",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/lectures",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"lectures"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2244"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8c4-q6NwGv3sAVXKc3ernrnsu2hf8+4\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:43:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"lectures fetched\",\n    \"data\": [\n        {\n            \"id\": \"1677060638\",\n            \"slug\": \"dicta\",\n            \"className\": \"Industrial\",\n            \"time\": \"2087-01-22T22:33:46.956Z\",\n            \"description\": \"New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart\",\n            \"classId\": \"5991085551\",\n            \"teacherId\": \"1245678177\",\n            \"students\": [\n                {\n                    \"personId\": \"7047024033\",\n                    \"lectureId\": \"1677060638\",\n                    \"attended\": false\n                }\n            ]\n        },\n        {\n            \"id\": \"7003932604\",\n            \"slug\": \"recusandae\",\n            \"className\": \"Automotive\",\n            \"time\": \"2007-03-03T04:13:51.688Z\",\n            \"description\": \"The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality\",\n            \"classId\": \"clfv5ddl900034g55h57z61t1\",\n            \"teacherId\": \"7047024033\",\n            \"students\": [\n                {\n                    \"personId\": \"4317383689\",\n                    \"lectureId\": \"7003932604\",\n                    \"attended\": true\n                }\n            ]\n        },\n        {\n            \"id\": \"9870911636\",\n            \"slug\": \"eligendi\",\n            \"className\": \"Baby\",\n            \"time\": \"2010-02-05T00:08:59.826Z\",\n            \"description\": \"Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals\",\n            \"classId\": \"5991085551\",\n            \"teacherId\": \"6235306604\",\n            \"students\": [\n                {\n                    \"personId\": \"6235306604\",\n                    \"lectureId\": \"9870911636\",\n                    \"attended\": true\n                },\n                {\n                    \"personId\": \"7047024033\",\n                    \"lectureId\": \"9870911636\",\n                    \"attended\": true\n                }\n            ]\n        },\n        {\n            \"id\": \"6259146381\",\n            \"slug\": \"modi\",\n            \"className\": \"Home\",\n            \"time\": \"2017-09-21T20:40:58.831Z\",\n            \"description\": \"The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design\",\n            \"classId\": \"3475753650\",\n            \"teacherId\": \"6235306604\",\n            \"students\": [\n                {\n                    \"personId\": \"7047024033\",\n                    \"lectureId\": \"6259146381\",\n                    \"attended\": true\n                }\n            ]\n        },\n        {\n            \"id\": \"3611121531\",\n            \"slug\": \"at\",\n            \"className\": \"Garden\",\n            \"time\": \"2036-10-06T04:34:56.027Z\",\n            \"description\": \"New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart\",\n            \"classId\": \"clfv5ddl900034g55h57z61t1\",\n            \"teacherId\": \"1724618208\",\n            \"students\": []\n        },\n        {\n            \"id\": \"clfv60rvz00094go2xtkw5g8h\",\n            \"slug\": \"CSI\",\n            \"className\": \"Computer Science I\",\n            \"time\": \"2082-05-17T21:45:35.442Z\",\n            \"description\": \"Computer science one\",\n            \"classId\": \"clfv5ddl900034g55h57z61t1\",\n            \"teacherId\": \"7047024033\",\n            \"students\": [\n                {\n                    \"personId\": \"4317383689\",\n                    \"lectureId\": \"clfv60rvz00094go2xtkw5g8h\",\n                    \"attended\": false\n                },\n                {\n                    \"personId\": \"5323919500\",\n                    \"lectureId\": \"clfv60rvz00094go2xtkw5g8h\",\n                    \"attended\": false\n                }\n            ]\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Lecture",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_path}}/lectures/CSI",
+							"host": [
+								"{{base_path}}"
+							],
+							"path": [
+								"lectures",
+								"CSI"
+							]
+						},
+						"description": "- Description: Retrieves a specific lecture by their slug.\n- Path parameter:\n    - `slug` (string, required): The slug of the lecture to retrieve.\n- Response: A message saying \"lecture fetched\" and the lecture object, or an error message if unsuccessful."
+					},
+					"response": [
+						{
+							"name": "Lecture",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_path}}/lectures/CSI",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"lectures",
+										"CSI"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "430"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1ae-ID7w5AuuX9i5w881nKjuUDA2VEk\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:44:27 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"lecture fetched\",\n    \"data\": {\n        \"id\": \"clfv60rvz00094go2xtkw5g8h\",\n        \"slug\": \"CSI\",\n        \"className\": \"Computer Science I\",\n        \"time\": \"2082-05-17T21:45:35.442Z\",\n        \"description\": \"Computer science one\",\n        \"classId\": \"clfv5ddl900034g55h57z61t1\",\n        \"teacherId\": \"7047024033\",\n        \"students\": [\n            {\n                \"personId\": \"4317383689\",\n                \"lectureId\": \"clfv60rvz00094go2xtkw5g8h\",\n                \"attended\": false\n            },\n            {\n                \"personId\": \"5323919500\",\n                \"lectureId\": \"clfv60rvz00094go2xtkw5g8h\",\n                \"attended\": false\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "Lecture negative",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_path}}/lectures/clfv60rvz00094go2xtkw5g8h",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"lectures",
+										"clfv60rvz00094go2xtkw5g8h"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "31"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1f-vZej+gMEGJeQnh55YKEES6R72CI\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:44:38 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Lecture not found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Lecture",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"clfv60rvz00094go2xtkw5g8h\",\n    \"slug\": \"aliquid\",\n    \"className\": \"Outdoors\",\n    \"time\": \"2082-05-17T23:45:35.442Z\",\n    \"description\": \"Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and suppor\",\n    \"class\": \"clfv5ddl900034g55h57z61t1\",\n    \"teacher\": \"4317383689\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_path}}/lectures/CSI",
+							"host": [
+								"{{base_path}}"
+							],
+							"path": [
+								"lectures",
+								"CSI"
+							]
+						},
+						"description": "- Description: Updates a specific lecture with the provided data.\n- Path parameter:\n    - `slug` (string, required): The slug of the lecture to update.\n- Body parameters:\n    - `slug` (string, required): The slug of the lecture.\n    - `className` (string, required): The name of the class the lecture is associated with.\n    - `description` (string, required): A description of the lecture.\n    - `time` (date, required): The date and time of the lecture.\n    - `students` (array, optional): An array of objects with the personalNumber property, representing the students attending the lecture.\n    - `classId` (string, required): The id of the class associated with the lecture, or null.\n    - `teacherId` (string, required): The personal number of the teacher associated with the lecture, or null.\n- Response: A message saying \"lecture updated\" and the updated lecture object, or an error message if unsuccessful."
+					},
+					"response": [
+						{
+							"name": "Lecture negative",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"id\": \"clfv60rvz00094go2xtkw5g8h\",\n        \"slug\": \"CSI\",\n        \"className\": \"Computer Science I\",\n        \"time\": \"2082-05-17T21:45:35.442Z\",\n        \"description\": \"Computer science one\",\n        \"classId\": \"clfv5ddl900034g55h57z61t1\",\n        \"teacherId\": \"7047024033\",\n        \"students\": [\n            {\n                \"personId\": \"4317383689\",\n                \"lectureId\": \"clfv60rvz00094go2xtkw5g8h\",\n                \"attended\": true\n            },\n            {\n                \"personId\": \"5323919500\",\n                \"lectureId\": \"clfv60rvz00094go2xtkw5g8h\",\n                \"attended\": true\n            }\n        ]\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/lectures/CSI",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"lectures",
+										"CSI"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "549"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"225-BBykajKzHTnvxC2jaaIpZt75Saw\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:45:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Error updating lecture\",\n    \"error\": {\n        \"issues\": [\n            {\n                \"code\": \"invalid_type\",\n                \"expected\": \"string\",\n                \"received\": \"object\",\n                \"path\": [\n                    \"students\",\n                    0\n                ],\n                \"message\": \"Expected string, received object\"\n            },\n            {\n                \"code\": \"invalid_type\",\n                \"expected\": \"string\",\n                \"received\": \"object\",\n                \"path\": [\n                    \"students\",\n                    1\n                ],\n                \"message\": \"Expected string, received object\"\n            },\n            {\n                \"code\": \"invalid_type\",\n                \"expected\": \"string\",\n                \"received\": \"undefined\",\n                \"path\": [\n                    \"class\"\n                ],\n                \"message\": \"Required\"\n            },\n            {\n                \"code\": \"invalid_type\",\n                \"expected\": \"string\",\n                \"received\": \"undefined\",\n                \"path\": [\n                    \"teacher\"\n                ],\n                \"message\": \"Required\"\n            }\n        ],\n        \"name\": \"ZodError\"\n    }\n}"
+						},
+						{
+							"name": "Lecture",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"clfv60rvz00094go2xtkw5g8h\",\n    \"slug\": \"aliquid\",\n    \"className\": \"Outdoors\",\n    \"time\": \"2082-05-17T23:45:35.442Z\",\n    \"description\": \"Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and suppor\",\n    \"class\": \"clfv5ddl900034g55h57z61t1\",\n    \"teacher\": \"4317383689\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/lectures/CSI",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"lectures",
+										"CSI"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "525"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"20d-yID0ecbyMtc0wXAAnXwZ9Ng/yV8\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:54:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"lecture updated\",\n    \"data\": {\n        \"id\": \"clfv60rvz00094go2xtkw5g8h\",\n        \"slug\": \"aliquid\",\n        \"className\": \"Outdoors\",\n        \"time\": \"2082-05-17T23:45:35.442Z\",\n        \"description\": \"Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and suppor\",\n        \"classId\": \"clfv5ddl900034g55h57z61t1\",\n        \"teacherId\": \"4317383689\",\n        \"students\": [\n            {\n                \"personId\": \"4317383689\",\n                \"lectureId\": \"clfv60rvz00094go2xtkw5g8h\",\n                \"attended\": false\n            },\n            {\n                \"personId\": \"5323919500\",\n                \"lectureId\": \"clfv60rvz00094go2xtkw5g8h\",\n                \"attended\": false\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Lecture",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_path}}/lectures/clfv60rvz00094go2xtkw5g8h",
+							"host": [
+								"{{base_path}}"
+							],
+							"path": [
+								"lectures",
+								"clfv60rvz00094go2xtkw5g8h"
+							]
+						},
+						"description": "- Description: Deletes a specific lecture and its related information.\n- Path parameter:\n    - `id` (string, required): The id of the lecture to delete.\n- Response: A message confirming that the lecture was deleted, or an error message if unsuccessful."
+					},
+					"response": [
+						{
+							"name": "Lecture negative",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/lectures/CSI",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"lectures",
+										"CSI"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "138"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8a-zmCNtkfoFJBdIVS7Z7PqCZ1hRRo\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:54:46 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Error deleting lecture\",\n    \"error\": {\n        \"code\": \"P2025\",\n        \"clientVersion\": \"4.11.0\",\n        \"meta\": {\n            \"cause\": \"Record to delete does not exist.\"\n        }\n    }\n}"
+						},
+						{
+							"name": "Lecture",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/lectures/clfv60rvz00094go2xtkw5g8h",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"lectures",
+										"clfv60rvz00094go2xtkw5g8h"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "29"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1d-Yzx8bbFfZWMgkBynpK0qAP0DQAc\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Mar 2023 13:54:58 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"lecture deleted\"\n}"
+						}
+					]
+				}
+			],
+			"description": "This endpoint provides access to all lectures in the system. Lectures are unique events with a specific date and time, and are associated with a specific class and teacher. Students may also attend a lecture, which is tracked by the system. This endpoint allows you to create new lectures, retrieve information about existing lectures, update lecture details, and delete lectures as needed. The response data for this endpoint includes the lecture's slug, class name, description, date and time, and information about any students attending the lecture."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_path",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}
