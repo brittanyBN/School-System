@@ -16,6 +16,24 @@ export const fakerLecture = async (): Promise<{ classId: string; teacherId: stri
     };
 };
 
+export async function createRandomPersonOnLecture() {
+    const personOnLecture = [];
+    for (let i = 0; i < 5; i++) {
+        const lecture = await prisma.lecture.findMany();
+        const lectureId = lecture[i].id;
+        let personId = lecture[i].teacherId;
+        if (!personId) {
+            throw new Error('No teacher found');
+        }
+        personOnLecture.push({
+            lectureId,
+            personId,
+            attended: true
+        });
+    }
+    return personOnLecture;
+}
+
 export async function randomLecture() {
     const lecture = await prisma.lecture.findMany();
     const random = lecture[Math.floor(Math.random() * lecture.length)] as Lecture;
