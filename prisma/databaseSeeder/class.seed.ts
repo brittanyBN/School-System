@@ -1,12 +1,10 @@
 import { faker } from "@faker-js/faker";
 import prisma from "../../src/utils/client";
-import {fakerPerson} from "./person.seed";
 import {Class} from "@prisma/client";
-import {Person} from "../../src/lib/types/person";
 
 export const fakerClass = (): Class => <Class>({
-    id: faker.random.numeric(10),
-    slug: faker.lorem.slug(1),
+    id: faker.helpers.unique(faker.random.numeric, [10]),
+    slug: faker.helpers.unique(faker.lorem.slug, [1]),
     name: faker.commerce.department(),
 });
 

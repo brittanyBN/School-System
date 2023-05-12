@@ -3,9 +3,6 @@ import prisma from "../../src/utils/client";
 import bcrypt from "bcryptjs";
 import {randomClass} from "./class.seed";
 import { Person } from "../../src/lib/types/person";
-import {Class} from "@prisma/client";
-import {randomLecture} from "./lecture.seed";
-import {randomPersonOnLecture} from "./persononlecture.seed";
 
 const passwordHash = (pw: string): string => {
     return bcrypt.hashSync(pw, 10);
@@ -23,9 +20,9 @@ function randomRole(): Role {
 }
 
 export const fakerPerson = async (): Promise<Person> => ({
-    personalNumber: faker.random.numeric(10),
+    personalNumber: faker.helpers.unique(faker.random.numeric, [10]),
     name: faker.name.firstName(),
-    email: faker.internet.email(),
+    email: faker.helpers.unique(faker.internet.email),
     password: passwordHash(faker.internet.password()),
     role: randomRole(),
     createdAt: faker.date.recent(),
